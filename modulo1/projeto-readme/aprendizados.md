@@ -1,0 +1,2 @@
+# Aprendizados da semana
+Nesta semana, aprendi principalmente sobre o que é um **terminal** e coloquei na prática seus comandos principais; entendi o conceito de uma **interface gráfica**, a diferença entre os dois. Além disso, aprendi e já comecei a colocar em prática os conhecimentos sobre o **git** e **github**.
