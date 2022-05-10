@@ -71,4 +71,3 @@ console.log("O primeiro número multiplicado pelo segundo número resulta em:",r
 
 
 
-
