@@ -97,7 +97,7 @@
 // const nome = produtos.map(callNome)
 // console.log(nome)
 
-// // 2.b)
+// 2.b)
 
 // const callDesconto = (item) => {
 //     const novoItem = {
@@ -138,7 +138,12 @@
 // console.log(novoYpe)
 
 
+
+
+
 // ----- DESAFIOS -----
+
+
 
 // 1
 
@@ -162,11 +167,11 @@
 
 // // 1.b)
 
-// const callTipos = (item, index, array) => {
-//     return item.tipo
-// }
+const callTipos = (item) => {
+    return item.tipo
+}
 
-// const tipos = pokemons.map(callTipos)
-// const tiposUnicos = [...new Set(tipos)]
-// console.log(tiposUnicos)
+const tipos = pokemons.map(callTipos)
+const tiposUnicos = [...new Set(tipos)]
+console.log(tiposUnicos)
 

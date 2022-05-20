@@ -113,36 +113,36 @@
 // 1
 
 
-// const numeroSorteado = +prompt("Insira o número que pensou:")
+const numeroSorteado = +prompt("Insira o número que pensou:")
 
-// console.log(numeroSorteado)
+console.log(numeroSorteado)
 
-// console.log("Vamos jogar!")
+console.log("Vamos jogar!")
 
-// let numeroChutado = 0
-// let tentativas = 0
+let numeroChutado = 0
+let tentativas = 0
 
-// while(numeroChutado !== numeroSorteado) {
+while(numeroChutado !== numeroSorteado) {
 
-//     numeroChutado = +prompt("Chute um número!")
+    numeroChutado = +prompt("Chute um número!")
 
-//     if(numeroChutado < numeroSorteado) {
-//         console.log("Errou. O número escolhido é maior.")
+    if(numeroChutado < numeroSorteado) {
+        console.log("Errou. O número escolhido é maior.")
         
-//     }
-//     else if(numeroChutado > numeroSorteado) {
-//         console.log("Errou. O número escolhido é menor.")
+    }
+    else if(numeroChutado > numeroSorteado) {
+        console.log("Errou. O número escolhido é menor.")
         
-//     }
+    }
 
-//     tentativas += 1
+    tentativas += 1
 
-//     console.log(`O número chutado foi: ${numeroChutado}`)
+    console.log(`O número chutado foi: ${numeroChutado}`)
 
-// }
+}
 
-// console.log("Acertou!!")
-// console.log(`O número de tentativas foi: ${tentativas}`)
+console.log("Acertou!!")
+console.log(`O número de tentativas foi: ${tentativas}`)
 
 
 
