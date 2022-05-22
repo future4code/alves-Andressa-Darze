@@ -9,6 +9,9 @@ let confirm = true
 while(confirm){
 
    confirm = window.confirm("Quer iniciar uma nova rodada?")
+   if(confirm === false){
+      break
+   }
    const cartaUsuario1 = comprarCarta()
    const cartaUsuario2 = comprarCarta()
    
