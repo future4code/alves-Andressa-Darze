@@ -145,17 +145,52 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-   
+    let arrayA = []
+
+    for(pessoa of pessoas) {
+
+        let x = (pessoa.altura >= 1.5)
+        let y = (pessoa.idade > 14 && pessoa.idade < 60)
+
+        if(x && y){
+            arrayA.push(pessoa)
+        }
+    }
+
+    return arrayA
 }
 
 // EXERCÍCIO 13B
 function retornaPessoasNaoAutorizadas(pessoas) {
-  
+    let arrayB = []
+
+    for(pessoa of pessoas) {
+
+        let x = (pessoa.altura >= 1.5)
+        let y = (pessoa.idade > 14 && pessoa.idade < 60)
+
+        if(!x || !y){
+            arrayB.push(pessoa)
+        }
+    }
+
+    return arrayB
 }
 
 // EXERCÍCIO 14
 function retornaContasComSaldoAtualizado(contas) {
+    for(i=0; i < contas.length; i++) {
 
+        let totalDespesas = 0
+
+        for(j=0; j < contas[i].compras.length; j++) {
+            totalDespesas += contas[i].compras[j]
+        }
+        contas[i].saldoTotal = contas[i].saldoTotal - totalDespesas // atualizando o saldo total
+
+        contas[i].compras = []
+    }
+    return contas
 }
 
 // EXERCÍCIO 15A
