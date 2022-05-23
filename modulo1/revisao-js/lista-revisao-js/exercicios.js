@@ -112,12 +112,26 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-  
+    let arrayFinal = []
+    let troca
+    let newArray = array
+    for(let i = 0; i < array.length; i++) {
+      for(let j = i + 1; j < array.length; j++) {
+          if(newArray[i] > newArray[j]) {
+               troca = newArray[i]
+                  newArray[i] = newArray[j]
+                  newArray[j] = troca
+          }
+      }
+    }
+    arrayFinal = [newArray[newArray.length - 2], newArray[1]]
+    return arrayFinal
+
 }
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
-   
+   return `Venha assistir ao filme ${filme.nome}, de ${filme.ano}, dirigido por ${filme.diretor} e estrelado por ${filme.atores[0]}, ${filme.atores[1]}, ${filme.atores[2]}, ${filme.atores[3]}.`
 }
 
 // EXERCÍCIO 12
