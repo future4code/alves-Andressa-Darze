@@ -88,7 +88,13 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-   
+   let arrayPrimeirosPares = []
+   let par = 0
+   for(i=0; i<n; i++){
+    arrayPrimeirosPares.push(par)
+    par += 2
+    }
+    return arrayPrimeirosPares
 }
 
 // EXERCÍCIO 09
