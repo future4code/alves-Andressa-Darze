@@ -35,12 +35,24 @@ function retornaArrayOrdenado(array) {
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
-  
+  let arrayPares = []
+  for(num of array) {
+      if(num % 2 === 0) {
+          arrayPares.push(num)
+      }
+  }
+  return arrayPares
 }
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
- 
+ let newArray = []
+ for(num of array) {
+     if(num % 2 === 0) {
+         newArray.push(num**2)
+     }
+ }
+ return newArray
 }
 
 // EXERCÍCIO 06
