@@ -1,0 +1,174 @@
+body {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 0;
+    margin: 0%;
+    grid-template-areas: 'head head head head'
+        'main-cards main-cards main-cards main-cards'
+        'main-cards main-cards main-cards main-cards'
+        'footer footer footer footer';
+}
+
+header {
+    background-color: rgb(75, 43, 143);
+    display: flex;
+    height: 60px;
+    padding: 5px;
+    align-items: center;
+    color: antiquewhite;
+    grid-area: head;
+
+}
+
+header img {
+    width: 3%;
+    height: 15%;
+}
+
+h1 {
+    flex: 1 1 10%
+}
+
+input {
+    width: 10%;
+    height: 15px;
+    justify-content: end;
+    align-items: center;
+    margin: 20px 5px 20px 30px;
+}
+
+/*------ CARDS ------ */
+
+#main-cards {
+    padding: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: main-cards;
+}
+
+#video11 {
+    background-color: cornflowerblue;
+    margin: 20px;
+    grid-area: video11;
+}
+
+#video12 {
+    background-color: rgb(166, 115, 179);
+    cornflowerblue;
+    margin: 20px;
+    grid-area: video12;
+}
+
+#video13 {
+    background-color: rgb(206, 206, 206);
+    cornflowerblue;
+    margin: 20px;
+    grid-area: video13;
+}
+
+#video14 {
+    background-color: rgb(206, 206, 206);
+    cornflowerblue;
+    margin: 20px;
+    grid-area: video14;
+}
+
+#video21 {
+    background-color: rgb(206, 206, 206);
+    cornflowerblue;
+    margin: 20px;
+    grid-area: video21;
+}
+
+#video22 {
+    background-color: rgb(206, 206, 206);
+    cornflowerblue;
+    margin: 20px;
+    grid-area: video22;
+}
+
+#video23 {
+    background-color: rgb(206, 206, 206);
+    cornflowerblue;
+    margin: 20px;
+    grid-area: video23;
+}
+
+#video24 {
+    background-color: rgb(206, 206, 206);
+    cornflowerblue;
+    margin: 20px;
+    grid-area: video24;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 20%;
+    min-width: 200px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+h3 {
+    padding: 2px 16px;
+    text-align: center;
+    font-size: 100%;
+}
+
+a:active {
+    color: black;
+}
+
+img {
+    width: 100%;
+}
+
+/*------------------- */
+
+footer {
+    background-color: rgb(106, 81, 133);
+    text-align: center;
+    padding: 10px;
+    color: antiquewhite;
+    position: fixed;
+    width: 100%;
+    height: 20px;
+    bottom: 0;
+}
+
+footer h2 {
+    font-size: 70%;
+}
+
+/* ----- Outras páginas ------ */
+
+main {
+    grid-row: 2 / 4;
+    grid-column: 2 / 4;
+}
+
+main h2 {
+    color: rgb(57, 45, 70);
+}
+
+/* ----- RESPONSIVIDADE ----- */
+
+@media sreen and (min-width:320px) and (max-width: 400px) {
+    header {
+        width: 100%;
+    }
+
+    #main-cards {
+        flex-direction: column;
+    }
+
+    .card {
+        align-items: unset;
+        width: 100%;
+        height: 100px;
+    }
+}
