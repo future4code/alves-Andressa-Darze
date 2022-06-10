@@ -1,0 +1,108 @@
+img {
+    /* width: 300px; */
+    height: auto;
+    border-radius: 10px;
+    border-style: outset;
+    border-color: aliceblue;
+    border-width: 2px;
+}
+
+* {
+    text-align: center;
+
+}
+
+.menu h1 {
+    color: aliceblue;
+}
+
+.menu {
+    background-color: #00756C;
+    padding: 10px;
+}
+
+.menu a {
+    color: aliceblue;
+    margin: 10px;
+}
+
+#quem-sou {
+    background-color: #00A89A;
+    padding: 10px;
+}
+
+#onde-passei {
+    background-color: #49F5E7;
+    color: black;
+    padding: 10px;
+}
+
+ul {
+    margin: 10px 250px 10px 250px;
+    /* padding: auto; */
+}
+
+#meus-projetos {
+    background-color: #9dfff5;
+    padding: 10px 0px 20px 0px;
+}
+
+#meus-projetos a {
+    padding: 0px 10px 0px 10px;
+}
+
+#minhas-habilidades {
+    background-color: #37B7AC;
+    padding: 7px;
+}
+
+#formulario-contato {
+    background-color: #008A7E;
+    padding: 10px;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+#redes-sociais {
+    background-color: #49F5E7;
+    padding: 10px;
+}
+
+#redes-sociais a,
+#redes-sociais li {
+    color: rgb(67, 74, 74);
+    display: inline-block;
+    padding: 0px 10px 0px 10px;
+}
+
+.projeto {
+    background-color: #49F5E7;
+    padding: 10px;
+}
+
+.projeto img {
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.projeto p {
+    padding: 10px 100px 10px 100px;
+}
+
+.tecnologias {
+    background-color: #9bfff7;
+    padding: 10px;
+}
+
+.tecnologias img {
+    border-style: none;
+}
+
+#template-loja img {
+    width: 300px;
+    display: inline-block;
+    margin-right: 10px;
+}
