@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import TelaAddPlaylist from "./components/TelaAddPlaylist";
+import TelaDetalhesPlaylist from "./components/TelaDetalhesPlaylist";
+import TelaListaPlaylists from "./components/TelaListaPlaylists";
+// import styled from "styled-components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  state = {
+    telaAtual: "addPlaylist",
+    clickedPlaylistId: ""
+  }
+
+  escolheTela = () => {
+    switch (this.state.telaAtual){
+      case "addPlaylist":
+        return <TelaAddPlaylist irParaListaPlaylists={this.irParaListaPlaylists} />
+      case "listaPlaylists":
+        return <TelaListaPlaylists irParaDetalhesPlaylist={this.irParaDetalhesPlaylist} irParaAddPlaylist={this.irParaAddPlaylist}/>
+      case "detalhesPlaylist":
+        return <TelaDetalhesPlaylist irParaListaPlaylists={this.irParaListaPlaylists} playlistId={this.state.clickedPlaylistId}/>
+      default:
+        return <div>Erro! Página não encontrada!</div>
+    }
+  }
+
+  irParaAddPlaylist = () => {
+    this.setState({telaAtual: "addPlaylist"})
+  }
+
+  irParaListaPlaylists = () => {
+    this.setState({telaAtual: "listaPlaylists", clickedPlaylistId: ""})
+  }
+
+  irParaDetalhesPlaylist = (playlistId) => {
+    this.setState({telaAtual: "detalhesPlaylist", clickedPlaylistId: playlistId})
+  }
+
+  render() {
+    return (
+      <div>
+        {this.escolheTela()}
+      </div>
+    );
+  }
 }
-
-export default App;
