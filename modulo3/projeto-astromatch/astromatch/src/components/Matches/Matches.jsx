@@ -1,15 +1,17 @@
 import React from 'react'
 import { useState, useEffect } from "react"
 import axios from "axios"
+import { BASE_URL } from '../../constants/constants';
 
 const Matches = (props) => {
 
     const [matches, setMatches] = useState([])
 
-    const getMatches = (person) => {
-        axios.get(`https://us-central1-missao-newton.cloudfunctions.net/astroMatch/${person}/matches`)
+    const getMatches = () => {
+        axios.get(`${BASE_URL}/matches`)
         .then((res) => {
             setMatches(res.data.matches)
+            console.log(res.data.matches)
         })
         .catch((err) => {
             console.log(err)
@@ -17,12 +19,12 @@ const Matches = (props) => {
     }
 
     useEffect(() => {
-        getMatches("daniel")
+        getMatches()
     }, [])
 
     const newMatches = matches.map((person) => {
         return (
-            <p key={person.name}>{person.name}</p>
+            <p key={person.id}>{person.name}</p>
         )
     })
 
