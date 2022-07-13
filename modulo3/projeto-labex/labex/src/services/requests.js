@@ -1,6 +1,7 @@
 import axios from "axios"
 import { BASE_URL } from "../constants/constants"
 
+
 export const getTrips = () => { 
     axios.get(`${BASE_URL}/trips`)
     .then((res) => {
@@ -116,5 +117,6 @@ export const decideCandidate = (tripId, candidateId, approved) => {
         console.log(err)
     })
 }
+
 
 // FALTA PASSAR PARÂMETRO saveData -> Rever aula da Chijo!!
