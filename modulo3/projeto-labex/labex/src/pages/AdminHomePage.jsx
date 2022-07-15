@@ -47,7 +47,7 @@ export const AdminHomePage = () => {
         <h4>Planeta: {trip.planet}</h4>
         <h4>Duração: {trip.durationInDays} dias</h4>
         <h4>Data: {trip.date}</h4>
-        <button onClick={() => goToTripDetailsPage(navigate)}>Detalhes</button>
+        <button onClick={() => goToTripDetailsPage(navigate, trip.id)}>Detalhes</button>
       </CardTrip>
     )
   })

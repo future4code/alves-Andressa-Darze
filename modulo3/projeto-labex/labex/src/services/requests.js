@@ -12,8 +12,11 @@ export const getTrips = () => {
     })
 }
 
-export const getTripDetails = (id) => {
-    axios.get(`${BASE_URL}/trip/${id}`)
+export const getTripDetails = (id, token) => {
+    const headers = {
+        "auth": token
+    }
+    axios.get(`${BASE_URL}/trip/${id}`, headers)
     .then((res) => {
         console.log(res)
     })
