@@ -25,7 +25,10 @@ export const AdminHomePage = () => {
 
   const [listTrips, setListTrips] = useState([])
 
+  const token = localStorage.getItem('token')
+
   useEffect(() => {
+    const token = localStorage.getItem('token')
     getTrips()
   }, [])
 
@@ -39,6 +42,22 @@ export const AdminHomePage = () => {
     })
   }
 
+  // TÁ DANDO O MESMO ERRO DO DECIDECANDIDATE!
+  const deleteTrip = (id) => {
+    const headers = {
+        "Content-Type": "application/json",
+        "auth": token
+    }
+
+    axios.delete(`${BASE_URL}/trips/${id}`, headers)
+    .then((res) => {
+        console.log(res)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
   const newListTrips = listTrips.map((trip) => {
     return (
       <CardTrip key={trip.id}>
@@ -48,6 +67,7 @@ export const AdminHomePage = () => {
         <h4>Duração: {trip.durationInDays} dias</h4>
         <h4>Data: {trip.date}</h4>
         <button onClick={() => goToTripDetailsPage(navigate, trip.id)}>Detalhes</button>
+        <button onClick={() => deleteTrip(trip.id)}>Deletar</button>
       </CardTrip>
     )
   })
@@ -64,7 +84,7 @@ export const AdminHomePage = () => {
       <button onClick={() => goBack(navigate)}>Voltar</button>
       <button onClick={() => goToCreateTripPage(navigate)}>Criar viagem</button>
       <button onClick={useLogOut}>Logout</button>
-      <button onClick={() => goToTripDetailsPage(navigate)}>Detalhes de uma viagem</button>
+      
       {newListTrips}
     </div>
   )
