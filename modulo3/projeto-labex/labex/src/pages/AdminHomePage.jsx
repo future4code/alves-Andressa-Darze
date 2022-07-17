@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { goBack, goToCreateTripPage, goToTripDetailsPage, goToLoginPage } from '../routes/Coordinator'
 import { useProtectedPage } from '../constants/constants'
@@ -20,15 +20,13 @@ const CardTrip = styled.div`
 export const AdminHomePage = () => {
   
   const navigate = useNavigate()
-
   useProtectedPage()
-
-  const [listTrips, setListTrips] = useState([])
-
   const token = localStorage.getItem('token')
 
+   // ---- PEGANDO LISTA DE VIAGENS ----
+  const [listTrips, setListTrips] = useState([])
+
   useEffect(() => {
-    const token = localStorage.getItem('token')
     getTrips()
   }, [])
 
@@ -38,23 +36,22 @@ export const AdminHomePage = () => {
         setListTrips(res.data.trips)
     })
     .catch((err) => {
-        console.log(err)
+        alert("Ocorreu um erro!")
     })
   }
+  // -----------------------------------
 
-  // TÁ DANDO O MESMO ERRO DO DECIDECANDIDATE!
+  // Deletar viagem
   const deleteTrip = (id) => {
     const headers = {
-        "Content-Type": "application/json",
         "auth": token
     }
-
-    axios.delete(`${BASE_URL}/trips/${id}`, headers)
+      axios.delete(`${BASE_URL}/trips/${id}`, {headers})
     .then((res) => {
-        console.log(res)
+        alert("Viagem deletada!")
     })
     .catch((err) => {
-        console.log(err)
+        alert(err.response.data)
     })
 }
 
@@ -72,7 +69,7 @@ export const AdminHomePage = () => {
     )
   })
 
-
+  // Função de Logout
   const useLogOut = () => {
     localStorage.removeItem("token")
     navigate('/login')

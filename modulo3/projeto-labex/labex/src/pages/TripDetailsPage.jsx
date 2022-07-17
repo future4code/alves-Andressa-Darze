@@ -28,28 +28,25 @@ export const TripDetailsPage = () => {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    axios.get(`${BASE_URL}/trip/${params.id}`, {
-      headers: {
-        auth: token
-      }
-    })
+    getTripDetails()
+  }, [])
+
+  const getTripDetails = () => {
+    const headers = {
+        "auth": token
+    }
+    axios.get(`${BASE_URL}/trip/${params.id}`, {headers})
     .then((res) => {
       setCandidates(res.data.trip.candidates)
       setApproved(res.data.trip.approved)
       setTripDetails(res.data.trip)
     })
     .catch((err) => {
-      console.log(err)
+      alert("Ocorreu um erro!")
     })
-  }
-  
-  , [])
+}
 
-  console.log(candidates)
-  console.log(approved)
-
-  // LISTA DE CANDIDATOS -- faltam os botões de aprovar ou não!
+  // LISTA DE CANDIDATOS
   const candidatesList = candidates.map((candidate) => {
     return (
       <CardCandidates key={candidate.id}>
@@ -58,7 +55,7 @@ export const TripDetailsPage = () => {
         <p>Profissão: {candidate.profession}</p>
         <p>Texto de Candidatura: {candidate.applicationText}</p>
         <button onClick={() => decideCandidate(candidate.id, true, candidate.name)}>Aprovar</button>
-        <button onClick={() => decideCandidate(candidate.id, false)}>Reprovar</button>
+        <button onClick={() => decideCandidate(candidate.id, false, candidate.name)}>Reprovar</button>
       </CardCandidates>
     )
   })
@@ -66,26 +63,25 @@ export const TripDetailsPage = () => {
   // PEGAR LISTA DE APROVADOS -- AINDA NÃO DEU CERTO!
   const approvedList = (approved === null ? <p>Não há candidatos aprovados</p> : approved.map((approved) => {
     return (
-      <p>{approved.name}</p>
+      <p key={approved.id}>{approved.name}</p>
     )
   }))
 
   // TÁ DANDO ERRO E AINDA FALTA UM JEITO DE ACRESCENTAR OS APROVADOS AO ARRAY APPROVED
-  const decideCandidate = (candidateId, approved, candidateName) => {
+  const decideCandidate = (candidateId, decide, candidateName) => {
     const headers = {
-        'Content-Type': 'application/json',
         'auth': token
     }
     const body = {
-        approve: approved
+        approve: decide
     }
-    axios.put(`${BASE_URL}/trips/${params.id}/candidates/${candidateId}/decide`, body, headers)
+    axios.put(`${BASE_URL}/trips/${params.id}/candidates/${candidateId}/decide`, body, {headers})
     .then((res) => {
-        console.log(res)
-        setApproved([...approved, candidateName ]) // conferir se tá certo (falta a o PUT não dar erro)
+        alert("Candidato aprovado!")
+        setApproved([...approved, candidateName ])
     })
     .catch((err) => {
-        console.log(err)
+        alert(err.response.data)
     })
 }
 

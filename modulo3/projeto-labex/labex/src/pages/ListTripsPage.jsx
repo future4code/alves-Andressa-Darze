@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import { goBack, goToApplicationFormPage } from '../routes/Coordinator'
 import axios from "axios"
 import { BASE_URL } from '../constants/constants'
@@ -9,6 +9,7 @@ export const ListTripsPage = () => {
 
   const navigate = useNavigate()
 
+ // ---- PEGANDO LISTA DE VIAGENS ----
   const [listTrips, setListTrips] = useState([])
 
   useEffect(() => {
@@ -21,9 +22,10 @@ export const ListTripsPage = () => {
         setListTrips(res.data.trips)
     })
     .catch((err) => {
-        console.log(err)
+        alert("Algo deu errado")
     })
   }
+// ------------------------------------
 
   const newListTrips = listTrips.map((trip) => {
     return (

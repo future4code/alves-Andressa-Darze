@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { goBack, goToAdminHomePage, goToHomePage } from '../routes/Coordinator'
+import { goToHomePage } from '../routes/Coordinator'
 import { BASE_URL } from '../constants/constants'
 import axios from "axios"
 import useForm from '../hooks/useForm'
@@ -10,7 +9,7 @@ export const LoginPage = () => {
 
   const navigate = useNavigate()
 
-  const {form, onChange, clenFields} = useForm({
+  const {form, onChange, cleanFields} = useForm({
     email: "",
     password: ""
   })
@@ -29,7 +28,7 @@ export const LoginPage = () => {
         
     })
     .catch((err) => {
-      alert(err.response.data.message)
+      alert("Ocorreu um erro! Tente novamente!")
     })
   }
 

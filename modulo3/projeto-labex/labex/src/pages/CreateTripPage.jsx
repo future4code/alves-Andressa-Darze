@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { goBack } from '../routes/Coordinator'
 import { useProtectedPage } from '../constants/constants'
@@ -9,9 +9,7 @@ import { BASE_URL } from '../constants/constants'
 export const CreateTripPage = () => {
 
   const navigate = useNavigate()
-
   useProtectedPage()
-
   const token = localStorage.getItem('token')
 
   const {form, onChange, cleanFields} = useForm({
@@ -25,17 +23,16 @@ export const CreateTripPage = () => {
   const createTrip = (event) => {
     event.preventDefault()
     const headers = {
-        "Content-Type": "application/json",
         "auth": token
     }
 
-    axios.post(`${BASE_URL}/trips`, form, headers)
+    axios.post(`${BASE_URL}/trips`, form, {headers})
     .then((res) => {
-        console.log(res)
-        // cleanFields()
+        alert("Viagem criada com sucesso!")
+        cleanFields()
     })
     .catch((err) => {
-        console.log(err)
+      alert("Ocorreu um erro!")
     })
 }
 
@@ -91,8 +88,6 @@ export const CreateTripPage = () => {
         />
         <button>Criar viagem</button>
       </form>
-
-      
     </div>
   )
 }
