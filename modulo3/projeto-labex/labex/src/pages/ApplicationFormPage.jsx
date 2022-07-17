@@ -4,70 +4,53 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { goBack } from '../routes/Coordinator'
 import axios from "axios"
 import { BASE_URL } from '../constants/constants'
-
-const options = [
-  { value: 1, label: " Viagem 1" },
-  { value: 2, label: " Viagem 2" },
-  { value: 3, label: " Viagem 3" },
-  { value: 4, label: " Viagem 4" },
-]
-
+import useForm from '../hooks/useForm'
 
 export const ApplicationFormPage = (props) => {
 
   const navigate = useNavigate()
 
-  const [trips, setTrips] = useState([])
-  const [name, setName] = useState("")
-  const [age, setAge] = useState("")
-  const [applicationText, setApplicationText] = useState("")
-  const [profession, setProfession] = useState("")
-  const [country, setCountry] = useState("")
+  // ---- PEGANDO LISTA DE VIAGENS ----
+  const [listTrips, setListTrips] = useState([])
 
-  const applyToTrip = (id) => {
+  useEffect(() => {
+    getTrips()
+  }, [])
+
+  const getTrips = () => { 
+    axios.get(`${BASE_URL}/trips`)
+    .then((res) => {
+        setListTrips(res.data.trips)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+  }
+// ------------------------------------
+  const { form, onChange, cleanFields } = useForm({
+    name: "",
+    age: "",
+    applicationText: "",
+    profession: "",
+    country: "",
+    trip: ""
+  })
+
+  const applyToTrip = (event) => {
+    event.preventDefault()
     const headers = {
         "Content-Type": "application/json"
     }
-    const body = {
-        name: name,
-        age: Number(age),
-        applicationText: applicationText,
-        profession: profession,
-        country: country
-    }
-
-    axios.post(`${BASE_URL}/trips/${id}/apply`, body, headers)
+  
+    axios.post(`${BASE_URL}/trips/${form.trip}/apply`, form, headers)
     .then((res) => {
       alert(res.data.message)
-      setName("")
-      setAge("")
-      setApplicationText("")
-      setProfession("")
-      setCountry("")
+      cleanFields()
+    
     })
     .catch((err) => {
       console.log(err)
     })
-  }
-
-  const handleName = (event) => {
-    setName(event.target.value)
-  }
-  const handleAge = (event) => {
-    setAge(event.target.value)
-  }
-  const handleApplicationText = (event) => {
-    setApplicationText(event.target.value)
-  }
-  const handleProfession = (event) => {
-    setProfession(event.target.value)
-  }
-  const handleCountry = (event) => {
-    setCountry(event.target.value)
-  }
-
-  const handleTrips = (event) => {
-    setTrips(Array.isArray(event) ? event.map((x) => x.label) : [])
   }
 
   return (
@@ -75,40 +58,70 @@ export const ApplicationFormPage = (props) => {
       <h2>ApplicationFormPage</h2>
       <button onClick={() => goBack(navigate)}>Voltar</button>
 
-      <select 
-        options={options}
-        placeholder={'Escolha uma viagem:'}
-        onChange={handleTrips}
-        onSelect={handleTrips}
-      />
 
-      <input 
-        value={name}
-        onChange={handleName}
-        placeholder='Nome'
-      />
-       <input 
-        value={age}
-        onChange={handleAge}
-        placeholder='Idade'
-      />
-       <input 
-        value={applicationText}
-        onChange={handleApplicationText}
-        placeholder='Texto de candidatura'
-      />
-       <input 
-        value={profession}
-        onChange={handleProfession}
-        placeholder='Profissão'
-      />
-       <input 
-        value={country}
-        onChange={handleCountry}
-        placeholder='País'
-      />
+      <form onSubmit={applyToTrip}>
+        <select 
+          name="trip"
+          value={form.trip}
+          onChange={onChange}
+          placeholder='Viagem'
+          required
+        >
+          {listTrips.map((trip) => {
+            return (
+              <option key={trip.id} value={trip.id}>{trip.name}</option>
+            )
+          })}
+        </select>
 
-      <button onClick={() => applyToTrip()}>Enviar</button>
+        <input 
+          name="name"
+          value={form.name}
+          onChange={onChange}
+          placeholder='Nome'
+          required
+          pattern={"^.{3,}"}
+          title={"O nome deve ter no mínimo 3 letras"}
+        />
+        <input
+          name="age" 
+          value={form.age}
+          onChange={onChange}
+          placeholder='Idade'
+          required
+          type={"number"}
+          min={18}
+          title={"Idade mínima é 18 anos"}
+        />
+        <input
+          name="applicationText"
+          value={form.applicationText}
+          onChange={onChange}
+          placeholder='Texto de candidatura'
+          required
+          pattern={"^.{30,}"}
+          title={"O texto deve ter no mínimo 30 dígitos"}
+        />
+        <input 
+          name="profession"
+          value={form.profession}
+          onChange={onChange}
+          placeholder='Profissão'
+          required
+          pattern={"^.{10,}"}
+          title={"O texto deve ter no mínimo 10 dígitos"}
+        />
+        {/* TEM QUE SER UM DROPDOWN */}
+        <input 
+          name="country"
+          value={form.country}
+          onChange={onChange}
+          placeholder='País'
+          required
+        />
+
+        <button>Enviar</button>
+      </form>
       
     </div>
   )
