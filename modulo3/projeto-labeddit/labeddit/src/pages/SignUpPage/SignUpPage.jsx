@@ -1,9 +1,15 @@
 import React from 'react'
+import SignUpForm from './SignUpForm'
+import useUnprotectedPage from '../../hooks/useUnprotectedPage'
 
-const SignInPage = () => {
+const SignUpPage = () => {
+  // useUnprotectedPage()
   return (
-    <div>SignInPage</div>
+    <div>
+      <h2>SignUpPage</h2>
+      <SignUpForm />
+    </div>
   )
 }
 
-export default SignInPage
+export default SignUpPage
