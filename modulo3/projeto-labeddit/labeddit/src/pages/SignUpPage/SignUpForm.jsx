@@ -2,15 +2,19 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import useForm from '../../hooks/useForm'
 import { signUp } from '../../services/users'
+import { useContext } from 'react'
+import GlobalStateContext from '../../global/GlobalStateContext'
 
 const SignUpForm = () => {
     const navigate = useNavigate()
+
+    const {states, setters} = useContext(GlobalStateContext)
 
     const [form, onChange, clear] = useForm({username: "", email: "", password: ""})
 
     const onSubmitForm = (event) => {
         event.preventDefault()
-        signUp(form, clear, navigate)
+        signUp(form, clear, navigate, setters.setRightButtonText)
     }
 
   return (

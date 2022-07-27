@@ -6,6 +6,7 @@ import useUnprotectedPage from '../../hooks/useUnprotectedPage'
 
 const LoginPage = () => {
   useUnprotectedPage()
+  
   const navigate = useNavigate()
 
   return (
