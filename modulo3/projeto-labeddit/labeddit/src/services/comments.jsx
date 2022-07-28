@@ -3,7 +3,7 @@ import { BASE_URL } from "../constants/urls"
 
 export const createCommentVote = (id, vote) => {
     const body = {
-        direction: vote
+        direction: Number(vote)
     }
     const headers = {
         Authorization: localStorage.getItem('token') 

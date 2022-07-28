@@ -15,12 +15,13 @@ const PostPage = () => {
 
   const commentsCards = getPostComments.map((comment) => {
     return (
-      <CommentCard>
+      <CommentCard
         key={comment.id}
+        id={comment.id}
         body={comment.body}
         voteSum={comment.voteSum}
         userVote={comment.userVote}
-      </CommentCard>
+      />
     )
   })
 

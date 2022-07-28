@@ -17,7 +17,7 @@ export const createPost = (body, clear) => {
 
 export const createPostVote = (id, vote) => {
     const body = {
-        direction: vote
+        direction: Number(vote)
     }
     const headers = {
         Authorization: localStorage.getItem('token') 

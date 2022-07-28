@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { createPostVote } from '../../services/posts'
 
 const PostCard = (props) => {
   return (
@@ -7,8 +8,14 @@ const PostCard = (props) => {
       <p>Enviado por: {props.username}</p>
       <h2>{props.title}</h2>
       <p>{props.body}</p>
-      <p>Votos: {props.voteSum}</p>
       <p>Comentários: {props.commentCount}</p>
+
+      <VoteButtonStyle>
+        <button onClick={() => createPostVote(props.postId, 1)}>Voto +</button>
+        <p>Votos:{props.voteSum}</p>
+        <button onClick={() => createPostVote(props.postId, -1)}>Voto -</button>
+      </VoteButtonStyle>
+      
       <button onClick={props.onClick}>Ver post</button>
     </PostCardStyle>
   )
@@ -23,4 +30,8 @@ const PostCardStyle = styled.div`
   flex-direction: column;
   margin: 10px;
   padding: 10px;
+`
+
+const VoteButtonStyle = styled.div`
+  display: flex;
 `

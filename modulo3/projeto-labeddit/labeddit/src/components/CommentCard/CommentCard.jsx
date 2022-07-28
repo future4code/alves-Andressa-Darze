@@ -1,12 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
+import { createCommentVote } from '../../services/comments'
 
 const CommentCard = (props) => {
   return (
     <CommentCardStyle>
       <h2>{props.title}</h2>
       <p>{props.body}</p>
-      <p>Votos: {props.voteSum}</p>
+      <VoteButtonStyle>
+        <button onClick={() => createCommentVote(props.id, 1)}>Voto +</button>
+        <p>Votos:{props.voteSum}</p>
+        <button onClick={() => createCommentVote(props.id, -1)}>Voto -</button>
+      </VoteButtonStyle>
     </CommentCardStyle>
   )
 }
@@ -20,4 +25,7 @@ const CommentCardStyle = styled.div`
   flex-direction: column;
   margin: 10px;
   padding: 10px;
+`
+const VoteButtonStyle = styled.div`
+  display: flex;
 `
