@@ -8,7 +8,7 @@ import GlobalStateContext from '../../global/GlobalStateContext'
 const SignUpForm = () => {
     const navigate = useNavigate()
 
-    const {states, setters} = useContext(GlobalStateContext)
+    const {states, setters, requests} = useContext(GlobalStateContext)
 
     const [form, onChange, clear] = useForm({username: "", email: "", password: ""})
 

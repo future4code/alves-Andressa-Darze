@@ -1,8 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import { createPostVote } from '../../services/posts'
+import { useContext } from 'react'
+import GlobalStateContext from '../../global/GlobalStateContext'
 
 const PostCard = (props) => {
+
+  const {states, setters, requests} = useContext(GlobalStateContext)
+
   return (
     <PostCardStyle>
       <p>Enviado por: {props.username}</p>
@@ -11,9 +16,9 @@ const PostCard = (props) => {
       <p>Comentários: {props.commentCount ? props.commentCount : 0}</p>
 
       <VoteButtonStyle>
-        <button onClick={() => createPostVote(props.postId, 1)}>Voto +</button>
+        <button onClick={requests.like(props.postId)}>Like</button>
         <p>Votos:{props.voteSum}</p>
-        <button onClick={() => createPostVote(props.postId, -1)}>Voto -</button>
+        <button onClick={requests.dislike(props.postId)}>Dislike</button>
       </VoteButtonStyle>
       
       <button onClick={props.onClick}>Ver post</button>

@@ -13,7 +13,7 @@ import { createPostVote } from '../../services/posts'
 const PostPage = () => {
   useProtectedPage()
   const params = useParams()
-  const {states, setters} = useContext(GlobalStateContext)
+  const {states, setters, requests} = useContext(GlobalStateContext)
 
   // COMENTÁRIOS
   const getPostComments = useRequestData([], `${BASE_URL}/posts/${params.id}/comments`)

@@ -14,7 +14,7 @@ import GlobalStateContext from '../../global/GlobalStateContext'
 const FeedPage = () => {
   useProtectedPage()
   const navigate = useNavigate()
-  const {states, setters} = useContext(GlobalStateContext)
+  const {states, setters, requests} = useContext(GlobalStateContext)
 
   const getPosts = useRequestData([], `${BASE_URL}/posts`)
 
