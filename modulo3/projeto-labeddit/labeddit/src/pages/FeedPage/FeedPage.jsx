@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import PostCard from '../../components/PostCard/PostCard'
 import useProtectedPage from '../../hooks/useProtectedPage'
 import useRequestData from '../../hooks/useRequestData'
 import { BASE_URL } from '../../constants/urls'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import { goToPostPage } from '../../routes/Coordinator'
 import useForm from '../../hooks/useForm'
 import { createPost } from '../../services/posts'
+import GlobalStateContext from '../../global/GlobalStateContext'
+
 
 const FeedPage = () => {
   useProtectedPage()
   const navigate = useNavigate()
+  const {states, setters} = useContext(GlobalStateContext)
 
   const getPosts = useRequestData([], `${BASE_URL}/posts`)
 
-  const onClickCard = (id) => {
+  const onClickCard = (id, info) => {
     goToPostPage(navigate, id)
+    setters.setPostInfo(info)
   }
 
   const postsCards = getPosts.map((post) => {
@@ -29,7 +33,13 @@ const FeedPage = () => {
         username={post.username} 
         commentCount={post.commentCount}
         voteSum={post.voteSum}
-        onClick={() => onClickCard(post.id)}
+        onClick={() => onClickCard(post.id, {
+          title: post.title,
+          body: post.body,
+          username: post.username,
+          commentCount: post.commentCount,
+          voteSum: post.voteSum
+        })}
       />
       
     )

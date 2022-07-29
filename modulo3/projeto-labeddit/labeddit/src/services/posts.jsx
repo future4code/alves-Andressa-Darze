@@ -33,7 +33,7 @@ export const createPostVote = (id, vote) => {
 
 export const changePostVote = (id, vote) => {
     const body = {
-        direction: vote
+        direction: Number(vote)
     }
     const headers = {
         Authorization: localStorage.getItem('token') 

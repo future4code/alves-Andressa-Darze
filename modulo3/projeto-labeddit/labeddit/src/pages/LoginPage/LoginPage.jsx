@@ -3,10 +3,12 @@ import LoginForm from './LoginForm'
 import { useNavigate } from 'react-router-dom'
 import { goToSignUpPage } from '../../routes/Coordinator'
 import useUnprotectedPage from '../../hooks/useUnprotectedPage'
+import { FormStyle } from './style'
+
 
 const LoginPage = () => {
   useUnprotectedPage()
-  
+
   const navigate = useNavigate()
 
   return (

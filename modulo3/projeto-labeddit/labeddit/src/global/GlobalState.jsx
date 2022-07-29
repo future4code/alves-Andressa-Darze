@@ -7,8 +7,16 @@ const GlobalState = (props) => {
 
     const [rightButtonText, setRightButtonText] = useState(token ? "Logout" : "Login")
 
-    const states = {rightButtonText}
-    const setters = {setRightButtonText}
+    const [postInfo, setPostInfo] = useState({
+      title:"",
+      body: "",
+      username: "",
+      commentCount: 0,
+      voteSum: 0
+    })
+    console.log(postInfo)
+    const states = {rightButtonText, postInfo}
+    const setters = {setRightButtonText, setPostInfo}
 
   return (
     <GlobalStateContext.Provider value={{states, setters}}>

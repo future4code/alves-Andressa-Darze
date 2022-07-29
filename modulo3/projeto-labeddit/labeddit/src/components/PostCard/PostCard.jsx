@@ -8,7 +8,7 @@ const PostCard = (props) => {
       <p>Enviado por: {props.username}</p>
       <h2>{props.title}</h2>
       <p>{props.body}</p>
-      <p>Comentários: {props.commentCount}</p>
+      <p>Comentários: {props.commentCount ? props.commentCount : 0}</p>
 
       <VoteButtonStyle>
         <button onClick={() => createPostVote(props.postId, 1)}>Voto +</button>
