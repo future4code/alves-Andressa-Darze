@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "typescript": "^4.7.4"
+  },
+  "name": "aprofundamento-typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "tsc && node ./build/exercicio4.js"
+  },
+  "author": "Andressa Darzé",
+  "license": "ISC",
+  "description": ""
+}
