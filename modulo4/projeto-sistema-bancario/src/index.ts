@@ -26,8 +26,8 @@ app.post("/users", (req: Request, res: Response) => {
 
         const newBirthday = Date.parse(birthday) // em milissegundos (no formato ano/mês/dia)
         const now = Date.now() // em milissegundos
-        const milPerYear = 31536000000
-        const diffYears = (now - newBirthday)/milPerYear
+        const msPerYear = 31536000000
+        const diffYears = (now - newBirthday)/msPerYear
 
         if(diffYears < 18) {
             errorCode = 401
@@ -135,6 +135,30 @@ app.post("/users/payment", (req: Request, res: Response) => {
 
     res.send(users)
 
+})
+
+app.put("/users/:cpf", (req: Request, res: Response) => {
+    const cpf = req.params.cpf
+
+    const userIndex: number = users.findIndex((user) => user.cpf === cpf)
+
+    // Somando valores do extrato
+    let sum = 0
+    for(let item of users[userIndex].extract) {
+
+        const dueDate = Date.parse(item.date) // em milissegundos (no formato ano/mês/dia)
+        const now = Date.now() // em milissegundos
+        const msPerDay = 86400000
+        const diffYears = (now - dueDate)/msPerDay // diferença em dias
+
+        if(diffYears >= 0) {
+            sum = sum + item.value
+        }
+    }
+
+    users[userIndex].balance = users[userIndex].balance + sum
+
+    res.send(users[userIndex])
 })
 
 const server = app.listen(3003, () => {

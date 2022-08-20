@@ -9,12 +9,12 @@ export const users : User[] = [
         extract: [
             {
                 value: 50,
-                date: "20/08/2022",
+                date: "2022/05/13",
                 description: "Aula de vôlei"
             },
             {
                 value: 100 ,
-                date: "19/08/2022",
+                date: "2022/09/01",
                 description: "Personal"
             }
         ],
@@ -28,7 +28,7 @@ export const users : User[] = [
         extract: [
             {
                 value: 1200,
-                date: "15/05/2022",
+                date: "2022/05/15",
                 description: "Mensalidade faculdade"
             }
         ],

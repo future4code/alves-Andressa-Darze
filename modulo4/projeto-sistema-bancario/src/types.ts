@@ -14,6 +14,6 @@ export type User = {
     cpf: string,
     birthday: string, // formato americano: yyyy/mm/dd
     balance: number,
-    extract: Array< Extract>
+    extract: Array<Extract>
     transaction: Array<Transaction>
 }
