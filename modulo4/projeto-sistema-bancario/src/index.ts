@@ -1,6 +1,6 @@
 import express, {Express, Request, Response} from 'express'
 import cors from 'cors'
-import { User, Extract, Transaction } from './types';
+import { User, Transaction} from './types';
 import { users } from './data';
 
 const app: Express = express();
@@ -18,7 +18,7 @@ const nowDate = () => {
 
     return finalDate
 }
-
+// Criar conta de usuário
 app.post("/users", (req: Request, res: Response) => {
     let errorCode = 400
     try {
@@ -46,8 +46,7 @@ app.post("/users", (req: Request, res: Response) => {
             cpf,
             birthday,
             balance: 0,
-            extract: [],
-            transaction: []
+            extract: []
         }
 
         users.push(newUser)
@@ -58,11 +57,11 @@ app.post("/users", (req: Request, res: Response) => {
         res.status(errorCode).send({message: error.message})
     }
 })
-
+// Pegar todos os usuários
 app.get("/users", (req: Request, res: Response) => {
     res.send(users)
 })
-
+// Pegar saldo de usuário através do CPF
 app.get("/users/:cpf", (req: Request, res: Response) => {
     let errorCode = 400
     try {
@@ -81,7 +80,7 @@ app.get("/users/:cpf", (req: Request, res: Response) => {
         res.status(errorCode).send({message: error.message})
     }
 })
-
+// Adicionar saldo à conta
 app.put("/users", (req: Request, res: Response) => {
     let errorCode = 400
     try {
@@ -102,7 +101,7 @@ app.put("/users", (req: Request, res: Response) => {
         const newDate = nowDate()
 
         // Criando novo ítem do extrato
-        const newExtractItem : Extract = {
+        const newExtractItem : Transaction = {
             value,
             date: newDate,
             description: "Depósito de dinheiro"
@@ -118,25 +117,49 @@ app.put("/users", (req: Request, res: Response) => {
     }
 
 })
+// Pagar conta
+app.post("/users/:cpf", (req: Request, res: Response) => {
+    let errorCode = 400
+    try {
+        const cpf = req.params.cpf
+        const { dueDate, description, value} = req.body
+        const newDate = nowDate()
 
-app.post("/users/payment", (req: Request, res: Response) => {
-    const { dueDate, description, value, cpf } = req.body
-    const newDate = nowDate()
+        // Validação de data de pagamento
+        const msDueDate = Date.parse(dueDate) // dueDate em milissegundos
+        const now = Date.now()
+        const msPerDay = 86400000
+        const diffInDays = (msDueDate - now)/msPerDay // diferença em dias
 
-    const userIndex: number = users.findIndex((user) => user.cpf === cpf)
+        if(diffInDays < 0) {
+            errorCode = 422
+            throw new Error("A data de pagamento não pode ser anterior à de hoje")
+        }
 
-    const newExtractItem : Extract = {
-        value: - value,
-        date: dueDate ? dueDate : newDate,
-        description
+        // Validação de montante a se pagar
+        const userIndex: number = users.findIndex((user) => user.cpf === cpf)
+
+        if(value > users[userIndex].balance) {
+            errorCode = 422
+            throw new Error("O valor inserido para pagamento é maior que o seu saldo.")
+        }
+
+        const newExtractItem : Transaction = {
+            value: - value,
+            date: dueDate ? dueDate : newDate,
+            description
+        }
+
+        users[userIndex].extract.push(newExtractItem)
+
+        res.send(users)
+        
+    } catch (error: any) {
+        res.status(errorCode).send({message: error.message})
     }
 
-    users[userIndex].extract.push(newExtractItem)
-
-    res.send(users)
-
 })
-
+// Atualizar saldo do cliente
 app.put("/users/:cpf", (req: Request, res: Response) => {
     const cpf = req.params.cpf
 
@@ -146,12 +169,13 @@ app.put("/users/:cpf", (req: Request, res: Response) => {
     let sum = 0
     for(let item of users[userIndex].extract) {
 
+        // Condição de somente somar para as datas anteriores ou iguais a hoje
         const dueDate = Date.parse(item.date) // em milissegundos (no formato ano/mês/dia)
         const now = Date.now() // em milissegundos
         const msPerDay = 86400000
-        const diffYears = (now - dueDate)/msPerDay // diferença em dias
+        const diffInDays = (now - dueDate)/msPerDay // diferença em dias
 
-        if(diffYears >= 0) {
+        if(diffInDays >= 0) {
             sum = sum + item.value
         }
     }
@@ -160,6 +184,50 @@ app.put("/users/:cpf", (req: Request, res: Response) => {
 
     res.send(users[userIndex])
 })
+// Transferência entre clientes
+app.post("/transfer", (req: Request, res: Response) => {
+    let errorCode = 400
+   try {
+        const { userName, userCPF, recipientName, recipientCPF, value } = req.body
+        const date = nowDate()
+
+        const userIndex = users.findIndex((user) => user.cpf === userCPF)
+        const recipientIndex = users.findIndex((user) => user.cpf === recipientCPF)
+
+        // Checando se ambas as contas existem
+        if((userIndex || recipientIndex) === -1 || users[userIndex].name !== userName || users[recipientIndex].name !== recipientName) {
+            errorCode =  401
+            throw new Error("Conta(s) inexistente(s)!")
+        }
+
+        // Checando se valor a transferir é maior que o saldo do cliente
+        if(value > users[userIndex].balance) {
+            errorCode = 422
+            throw new Error("O valor inserido para pagamento é maior que o seu saldo.")
+        }
+
+        const newUserExtract : Transaction = {
+            value: -value,
+            date: date,
+            description: `Transferência interna para ${recipientName}`
+        }
+
+        const newRecipientExtract: Transaction = {
+            value: value,
+            date: date,
+            description: `Transferência interna de ${userName}`
+        }
+
+        users[userIndex].extract.push(newUserExtract)
+        users[recipientIndex].extract.push(newRecipientExtract)
+
+        res.send(users)
+
+   } catch (error: any) {
+        res.status(errorCode).send({message: error.message})
+   }
+})
+
 
 const server = app.listen(3003, () => {
     console.log(`Server is running in http://localhost:3003`);

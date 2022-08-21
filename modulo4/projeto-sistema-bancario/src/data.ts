@@ -17,8 +17,7 @@ export const users : User[] = [
                 date: "2022/09/01",
                 description: "Personal"
             }
-        ],
-        transaction: []
+        ]
     },
     {
         name: "Adriano",
@@ -31,7 +30,6 @@ export const users : User[] = [
                 date: "2022/05/15",
                 description: "Mensalidade faculdade"
             }
-        ],
-        transaction: []
+        ]
     }
 ]
