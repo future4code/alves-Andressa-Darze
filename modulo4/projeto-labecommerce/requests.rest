@@ -1,0 +1,38 @@
+POST http://localhost:3003/users
+Content-Type: application/json
+
+{
+    "name": "Andressa Darzé",
+    "email": "andressa@gmail.com",
+    "password": "123456"
+}
+
+###
+
+GET http://localhost:3003/users
+
+###
+
+POST http://localhost:3003/products
+Content-Type: application/json
+
+{
+    "name": "Produto 4",
+    "price": 112,
+    "image_url": "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ"
+}
+
+###
+
+GET http://localhost:3003/products
+
+###
+
+POST http://localhost:3003/purchases
+Content-Type: application/json
+
+{
+    "user_id": "002",
+    "product_id": "01",
+    "quantity": 2
+}
