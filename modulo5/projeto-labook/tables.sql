@@ -27,3 +27,6 @@ create table Labook_Likes(
 select * from `Labook_Users`;
 
 select * from `Labook_Posts`;
+
+select * from `Labook_Likes`;
+

@@ -4,6 +4,7 @@ import  {Authenticator, ITokenPayload } from "../services/Authenticator"
 import { IAddPostInputDTO, IDeletePostInputDTO, IGetPostsInputDTO, IGetPostsOutputDTO, IGetPostsPost, Post } from "../entities/Post";
 import { IdNotFound, InvalidContent, InvalidToken, MissingFields, NotAuthorized } from "../error/error";
 import { USER_ROLES } from "../entities/User";
+import { ILikeDB, ILikeInputDTO } from "../entities/Like";
 
 class PostBusiness {
     constructor(
@@ -101,6 +102,47 @@ class PostBusiness {
         return response
 
     }
+
+    public likePost = async (input: ILikeInputDTO) => {
+        const { token, postId } = input
+
+        const payload = this.authenticator.verifyToken(token)
+
+        if(!payload) {
+            throw new InvalidToken()
+        }
+
+        const userId = payload.id
+
+        const postDB = await this.postDatabase.findById(postId)
+
+        if(!postDB) {
+            throw new IdNotFound()
+        }
+
+        const verifyLike = await this.postDatabase.verifyLike(postId, userId)
+
+        if(verifyLike.length > 0){
+            throw new NotAuthorized()
+        }
+
+        const id = this.idGenerator.generate()
+
+        const like : ILikeDB = {
+            id,
+            post_id: postId,
+            user_id: userId
+        }
+
+        await this.postDatabase.likePost(like)
+
+        const response = {
+            message: "Like dado com sucesso!"
+        }
+
+        return response
+    }
+
 }
 
 export default PostBusiness

@@ -4,6 +4,7 @@ export interface IPostDB {
     user_id: string
 }
 
+
 export class Post {
     constructor(
         private id: string,

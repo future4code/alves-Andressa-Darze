@@ -66,4 +66,3 @@ export class NotAuthorized extends BaseError {
         super('Ação não autorizada!', 401)
     }
 }
-

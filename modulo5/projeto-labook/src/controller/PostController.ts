@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import PostBusiness from "../business/PostBusiness";
+import { ILikeInputDTO } from "../entities/Like";
 import { IAddPostInputDTO, IDeletePostInputDTO, IGetPostsInputDTO } from "../entities/Post";
 
 class PostController {
@@ -61,6 +62,25 @@ class PostController {
             res.status(400).send({ message: error.message })
         }
 
+    }
+
+    public likePost = async (req: Request, res: Response) => {
+        try {
+            const token = req.headers.authorization as string
+            const postId = req.params.postId
+    
+            const input : ILikeInputDTO = {
+                token,
+                postId
+            }
+    
+            const response = await this.postBusiness.likePost(input)
+    
+            res.status(201).send(response)
+
+        } catch (error: any) {
+            res.status(400).send({ message: error.message })
+        }
     }
 }
 
