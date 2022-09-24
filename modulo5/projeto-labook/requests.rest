@@ -3,9 +3,9 @@ POST http://localhost:3003/users/signup
 Content-Type: application/json
 
 {
-    "name": "Andressa",
-    "email": "andressa@gmail.com",
-    "password": "andressa123"
+    "name": "Bianca",
+    "email": "bianca@gmail.com",
+    "password": "bianca123"
 }
 
 ### Login
@@ -20,9 +20,19 @@ Content-Type: application/json
 
 ### AddPost
 POST http://localhost:3003/posts
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhmNWYzZWI5LWY0YzktNDc0Ni04OWFkLTczZjJkMmNiY2VlNCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjM5NzE5OTksImV4cCI6MTY2Mzk3NTU5OX0.RtS6TkWKbDyvgPH0tZKdWGVaZqupscglK6O9AaltwW4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0ZDM0YWE4LTJhM2QtNDhhYy1hMzBkLThhZWUzMDgzN2NmNiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQwNTAwMzIsImV4cCI6MTY2NDA1MzYzMn0.l4C24dowgdUmy8RvieW1xM9UH-XE2CiLkH0juSMasv8
 Content-Type: application/json
 
 {
-    "content": "Primeiro Post!!!"
+    "content": "Post by Bianca!!!!"
 }
+
+### GetAllPosts
+GET http://localhost:3003/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhmNWYzZWI5LWY0YzktNDc0Ni04OWFkLTczZjJkMmNiY2VlNCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQwNTAxOTcsImV4cCI6MTY2NDA1Mzc5N30.sQJlTTbs3pEkAcsFjBv9WBmwYLnYXvEQdaw9Rw1O9Ag
+
+### DeletePost
+
+DELETE http://localhost:3003/posts/a7097266-bb38-4e8f-ac3e-76e927221a03
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhmNWYzZWI5LWY0YzktNDc0Ni04OWFkLTczZjJkMmNiY2VlNCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQwNTAxOTcsImV4cCI6MTY2NDA1Mzc5N30.sQJlTTbs3pEkAcsFjBv9WBmwYLnYXvEQdaw9Rw1O9Ag
+

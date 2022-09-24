@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import PostBusiness from "../business/PostBusiness";
-import { IAddPostInputDTO } from "../entities/Post";
+import { IAddPostInputDTO, IDeletePostInputDTO, IGetPostsInputDTO } from "../entities/Post";
 
 class PostController {
     constructor(
@@ -24,6 +24,43 @@ class PostController {
         } catch (error: any) {
             res.status(400).send({ message: error.message })
         }
+    }
+
+    public getAllPosts = async (req: Request, res: Response) => {
+        try {
+            const token = req.headers.authorization as string
+
+            const input : IGetPostsInputDTO = {
+                token
+            }
+
+            const response = await this.postBusiness.getAllPosts(input)
+
+            res.status(200).send(response)
+
+        } catch (error: any) {
+            res.status(400).send({ message: error.message })
+        }
+    }
+
+    public deletePost = async (req: Request, res: Response) => {
+        try {
+            const token = req.headers.authorization as string
+            const idToDelete = req.params.id
+    
+            const input : IDeletePostInputDTO = {
+                token,
+                idToDelete
+            }
+    
+            const response = await this.postBusiness.deletePost(input)
+    
+            res.status(201).send(response)
+
+        } catch (error: any) {
+            res.status(400).send({ message: error.message })
+        }
+
     }
 }
 

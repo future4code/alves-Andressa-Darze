@@ -55,3 +55,15 @@ export class InvalidContent extends BaseError {
     }
 }
 
+export class IdNotFound extends BaseError {
+    constructor(){
+        super("Id não encontrado", 401)
+    }
+}
+
+export class NotAuthorized extends BaseError {
+    constructor(){
+        super('Ação não autorizada!', 401)
+    }
+}
+

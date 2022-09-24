@@ -1,8 +1,9 @@
 import PostDatabase from "../data/PostDatabase";
 import IdGenerator from "../services/IdGenerator"
 import  {Authenticator, ITokenPayload } from "../services/Authenticator"
-import { IAddPostInputDTO, Post } from "../entities/Post";
-import { InvalidContent, InvalidToken, MissingFields } from "../error/error";
+import { IAddPostInputDTO, IDeletePostInputDTO, IGetPostsInputDTO, IGetPostsOutputDTO, IGetPostsPost, Post } from "../entities/Post";
+import { IdNotFound, InvalidContent, InvalidToken, MissingFields, NotAuthorized } from "../error/error";
+import { USER_ROLES } from "../entities/User";
 
 class PostBusiness {
     constructor(
@@ -17,15 +18,15 @@ class PostBusiness {
         const payload = this.authenticator.verifyToken(token)
 
         if(!payload) {
-            throw new InvalidToken
+            throw new InvalidToken()
         }
 
         if(!content) {
-            throw new MissingFields
+            throw new MissingFields()
         }
 
         if(content.length < 1) {
-            throw new InvalidContent
+            throw new InvalidContent()
         }
 
         const id = this.idGenerator.generate()
@@ -33,8 +34,8 @@ class PostBusiness {
         const post = new Post(
             id,
             content,
-            payload.id,
-            0
+            payload.id
+            // 0
         )
 
         await this.postDatabase.createPost(post)
@@ -44,6 +45,61 @@ class PostBusiness {
         }
 
         return response
+    }
+
+    public getAllPosts = async (input: IGetPostsInputDTO) => {
+        const token = input.token
+
+        const payload = this.authenticator.verifyToken(token)
+
+        if(!payload) {
+            throw new InvalidToken()
+        }
+
+        const postsDB = await this.postDatabase.getAllPosts()
+
+        const posts = Post.mapPostsToFront(postsDB)
+        
+        const response : IGetPostsOutputDTO= {
+            posts
+        }
+
+        return response
+    }
+
+    public deletePost = async( input: IDeletePostInputDTO) => {
+        const { token, idToDelete } = input
+
+        const payload = this.authenticator.verifyToken(token)
+
+        if(!payload) {
+            throw new InvalidToken()
+        }
+
+        const postDB = await this.postDatabase.findById(idToDelete)
+
+        if(!postDB) {
+            throw new IdNotFound()
+        }
+
+        const post = new Post(
+            postDB.id,
+            postDB.content,
+            postDB.user_id
+        )
+
+        if(payload.role === USER_ROLES.NORMAL && payload.id !== post.getUserId()) {
+            throw new NotAuthorized()
+        }
+
+        await this.postDatabase.deletePost(idToDelete)
+
+        const response= {
+            message: "Post deletado com sucesso!"
+        }
+
+        return response
+
     }
 }
 
