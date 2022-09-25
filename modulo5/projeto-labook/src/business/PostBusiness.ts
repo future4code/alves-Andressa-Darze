@@ -59,9 +59,21 @@ class PostBusiness {
 
         const postsDB = await this.postDatabase.getAllPosts()
 
-        const posts = Post.mapPostsToFront(postsDB)
+        const posts = postsDB.map(postDB => {
+            return new Post(
+                postDB.id,
+                postDB.content,
+                postDB.user_id
+            )
+        })
+
+        for(let post of posts) {
+            const postId = post.getId()
+            const likes = await this.postDatabase.getLikes(postId)
+            post.setLikes(likes)
+        }
         
-        const response : IGetPostsOutputDTO= {
+        const response : IGetPostsOutputDTO = {
             posts
         }
 
@@ -161,7 +173,6 @@ class PostBusiness {
         }
 
         const verifyLike = await this.postDatabase.verifyLike(postId, userId)
-        console.log(verifyLike)
 
         if(!verifyLike.length){
             throw new dislikeNotAuthorized()

@@ -1,8 +1,7 @@
 export interface IPostDB {
     id: string,
     content: string,
-    user_id: string
-    // likes: number
+    user_id: string,
 }
 
 
@@ -10,29 +9,28 @@ export class Post {
     constructor(
         private id: string,
         private content: string,
-        private userId: string
-        // private likes: number
+        private userId: string,
+        private likes: number = 0
     ) {}
 
-    public static mapPostsToFront = (postsDB: IPostDB[]) => {
-        return postsDB.map(postDB => {
-            const post = new Post(
-                postDB.id,
-                postDB.content,
-                postDB.user_id
-                //post.DB.likes
-            )
+    // public static mapPostsToFront = (postsDB: IPostDB[]) => {
+    //     return postsDB.map(postDB => {
+    //         const post = new Post(
+    //             postDB.id,
+    //             postDB.content,
+    //             postDB.user_id
+    //         )
 
-            const postResponse: IGetPostsPost = {
-                id: post.getId(),
-                content: post.getContent(),
-                userId: post.getUserId()
-                //likes: post.getLikes()
-            }
+    //         const postResponse: IGetPostsPost = {
+    //             id: post.getId(),
+    //             content: post.getContent(),
+    //             userId: post.getUserId(),
+    //             likes: post.getLikes()
+    //         }
 
-            return postResponse
-        })
-    }
+    //         return postResponse
+    //     })
+    // }
 
     public getId = () => {
         return this.id
@@ -46,9 +44,13 @@ export class Post {
         return this.userId
     }
 
-    // public getLikes = () => {
-    //     return this.likes
-    // }
+    public getLikes = () => {
+        return this.likes
+    }
+
+    public setLikes = (newLikes: number) => {
+        this.likes = newLikes
+    }
 }
 
 export interface IAddPostInputDTO {
@@ -63,12 +65,12 @@ export interface IGetPostsInputDTO {
 export interface IGetPostsPost {
     id: string,
     content: string,
-    userId: string
-    //likes: string
+    userId: string,
+    likes: number
 }
 
 export interface IGetPostsOutputDTO {
-    posts: IGetPostsPost[]
+    posts: Post[]
 }
 
 export interface IDeletePostInputDTO {

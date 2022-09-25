@@ -39,6 +39,10 @@ export class User {
     public getRole = () => {
         return this.role
     }
+
+    public setRole = (newRole: USER_ROLES) => {
+        this.role = newRole
+    }
 }
 
 export interface ISignupInputDTO {

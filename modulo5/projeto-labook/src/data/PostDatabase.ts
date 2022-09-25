@@ -12,7 +12,6 @@ class PostDatabase extends BaseDatabase {
             content: post.getContent(),
             user_id: post.getUserId(),
         }
-        // likes: post.getLikes()
 
         await BaseDatabase
         .connection(PostDatabase.TABLE_POSTS)
@@ -25,6 +24,16 @@ class PostDatabase extends BaseDatabase {
         .select()
         
         return postsDB
+    }
+
+    public getLikes = async (postId: string) => {
+        const result: any = await BaseDatabase
+        .connection(PostDatabase.TABLE_LIKES)
+        .select()
+        .count("id AS likes")
+        .where({ post_id: postId })
+
+        return result[0].likes as number
     }
 
     public findById = async (id: string) => {
