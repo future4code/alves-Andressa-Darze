@@ -66,3 +66,15 @@ export class NotAuthorized extends BaseError {
         super('Ação não autorizada!', 401)
     }
 }
+
+export class LikeNotAuthorized extends BaseError {
+    constructor(){
+        super('Você já deu like nesse post!', 401)
+    }
+}
+
+export class dislikeNotAuthorized extends BaseError {
+    constructor(){
+        super('Você ainda não deu like nesse post!', 401)
+    }
+}

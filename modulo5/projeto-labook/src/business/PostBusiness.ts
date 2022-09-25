@@ -2,7 +2,7 @@ import PostDatabase from "../data/PostDatabase";
 import IdGenerator from "../services/IdGenerator"
 import  {Authenticator, ITokenPayload } from "../services/Authenticator"
 import { IAddPostInputDTO, IDeletePostInputDTO, IGetPostsInputDTO, IGetPostsOutputDTO, IGetPostsPost, Post } from "../entities/Post";
-import { IdNotFound, InvalidContent, InvalidToken, MissingFields, NotAuthorized } from "../error/error";
+import { dislikeNotAuthorized, IdNotFound, InvalidContent, InvalidToken, LikeNotAuthorized, MissingFields, NotAuthorized } from "../error/error";
 import { USER_ROLES } from "../entities/User";
 import { ILikeDB, ILikeInputDTO } from "../entities/Like";
 
@@ -123,7 +123,7 @@ class PostBusiness {
         const verifyLike = await this.postDatabase.verifyLike(postId, userId)
 
         if(verifyLike.length > 0){
-            throw new NotAuthorized()
+            throw new LikeNotAuthorized()
         }
 
         const id = this.idGenerator.generate()
@@ -138,6 +138,39 @@ class PostBusiness {
 
         const response = {
             message: "Like dado com sucesso!"
+        }
+
+        return response
+    }
+
+    public dislikePost = async (input: ILikeInputDTO) => {
+        const { token, postId } = input
+
+        const payload = this.authenticator.verifyToken(token)
+
+        if(!payload) {
+            throw new InvalidToken()
+        }
+
+        const userId = payload.id
+
+        const postDB = await this.postDatabase.findById(postId)
+
+        if(!postDB) {
+            throw new IdNotFound()
+        }
+
+        const verifyLike = await this.postDatabase.verifyLike(postId, userId)
+        console.log(verifyLike)
+
+        if(!verifyLike.length){
+            throw new dislikeNotAuthorized()
+        }
+
+        await this.postDatabase.dislikePost(postId, userId)
+
+        const response = {
+            message: "Dislike efetuado com sucesso!"
         }
 
         return response

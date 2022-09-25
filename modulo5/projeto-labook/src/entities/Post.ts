@@ -2,6 +2,7 @@ export interface IPostDB {
     id: string,
     content: string,
     user_id: string
+    // likes: number
 }
 
 
@@ -19,12 +20,14 @@ export class Post {
                 postDB.id,
                 postDB.content,
                 postDB.user_id
+                //post.DB.likes
             )
 
             const postResponse: IGetPostsPost = {
                 id: post.getId(),
                 content: post.getContent(),
                 userId: post.getUserId()
+                //likes: post.getLikes()
             }
 
             return postResponse
@@ -61,6 +64,7 @@ export interface IGetPostsPost {
     id: string,
     content: string,
     userId: string
+    //likes: string
 }
 
 export interface IGetPostsOutputDTO {

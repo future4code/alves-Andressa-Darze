@@ -58,10 +58,18 @@ class PostDatabase extends BaseDatabase {
     public verifyLike = async (postId: string, userId: string) => {
         const likesDB : ILikeByUserIdDB[] = await BaseDatabase
         .connection(PostDatabase.TABLE_LIKES)
-        .select()
+        .select('id')
         .where({post_id: postId, user_id: userId})
-
+        
         return likesDB
+    }
+
+    public dislikePost = async (postId: string, userId: string) => {
+        await BaseDatabase
+        .connection(PostDatabase.TABLE_LIKES)
+        .delete()
+        .where({ post_id: postId })
+        .andWhere({ user_id: userId })
     }
 }
 
