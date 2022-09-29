@@ -1,0 +1,42 @@
+### Signup
+
+POST  http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "Andressa",
+    "email": "andressa@gmail.com",
+    "password": "andressa123"
+}
+
+### Login 
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "andressa@gmail.com",
+    "password": "andressa123"
+}
+
+### AddShow
+POST http://localhost:3003/shows/add 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM5N2I1NTQwLWMyZGYtNDg3Yy1iMmFhLWM1ZDliNWRhZmFhNSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDQ4OTgxMSwiZXhwIjoxNjY0NTc2MjExfQ.zyyB1p6F1aBEt0iP0kmVaRRMUw16PPivU8gUYjJWZOI
+Content-Type: application/json
+
+{
+    "band": "Banda 2",
+    "starts_at": "2022/10/01"
+}
+
+### GetAllShows
+GET http://localhost:3003/shows
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM5N2I1NTQwLWMyZGYtNDg3Yy1iMmFhLWM1ZDliNWRhZmFhNSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDQ4OTgxMSwiZXhwIjoxNjY0NTc2MjExfQ.zyyB1p6F1aBEt0iP0kmVaRRMUw16PPivU8gUYjJWZOI
+
+### BookShow
+POST http://localhost:3003/shows/book
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM5N2I1NTQwLWMyZGYtNDg3Yy1iMmFhLWM1ZDliNWRhZmFhNSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDQ4OTgxMSwiZXhwIjoxNjY0NTc2MjExfQ.zyyB1p6F1aBEt0iP0kmVaRRMUw16PPivU8gUYjJWZOI
+Content-Type: application/json
+
+{
+    "showId": "4a7f99a3-693f-4412-94a8-d176a9ff275d"
+}
