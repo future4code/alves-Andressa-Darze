@@ -12,3 +12,5 @@ const productController = new ProductController(
         new IdGenerator()
     )
 )
+
+productRouter.post("/", productController.insertData)

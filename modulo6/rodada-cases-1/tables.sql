@@ -10,3 +10,8 @@ create table if not exists Case1_Tags_Products(
     foreign key (product_id) references Case1_Products(id)
 );
 
+select * from `Case1_Products`;
+
+select * from `Case1_Tags_Products`;
+
+
