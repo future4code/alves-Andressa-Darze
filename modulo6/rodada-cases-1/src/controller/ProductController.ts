@@ -18,8 +18,32 @@ class ProductController {
         } catch (error: any) {
             res.status(400).send({ message: error.message })
         }
+    }
 
+    public searchById = async (req: Request, res: Response) => {
+        try {
+            const id = req.query.id as string
 
+            const response = await this.productBusiness.searchById(id)
+
+            res.status(200).send(response)
+
+        } catch (error: any) {
+            res.status(400).send({ message: error.message })
+        }
+    }
+
+    public searchByName = async (req: Request, res: Response) => {
+        try {
+            const name = req.query.name as string || ""
+
+            const response = await this.productBusiness.searchByName(name)
+
+            res.status(200).send(response)
+
+        } catch (error: any) {
+            res.status(400).send({ message: error.message })
+        }
     }
 }
 

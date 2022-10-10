@@ -131,3 +131,9 @@ Content-Type: application/json
       }
     ]
 }
+
+### SearchById
+GET http://localhost:3003/products/id?id=7533
+
+### SearchByName
+GET http://localhost:3003/products/name?name=longo

@@ -55,6 +55,35 @@ class ProductBusiness {
         return response
 
     }
+
+    public searchById = async(id: string) => {
+
+        const productDB = await this.productDatabase.searchById(id)
+
+        return productDB
+    }
+
+    public searchByName = async(name: string) => {
+
+        const productsDB = await this.productDatabase.searchByName(name)
+        
+        const products = productsDB.map(product => {
+            const newProduct = new Product(
+                product.id,
+                product.name,
+                []
+            )
+
+            const productResponse : IProductDB = {
+                id: newProduct.getId(),
+                name: newProduct.getName()
+            }
+
+            return productResponse
+        })
+
+        return products
+    }
 }
 
 export default ProductBusiness

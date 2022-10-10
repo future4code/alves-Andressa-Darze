@@ -14,3 +14,5 @@ const productController = new ProductController(
 )
 
 productRouter.post("/", productController.insertData)
+productRouter.get("/id", productController.searchById)
+productRouter.get("/name", productController.searchByName)
