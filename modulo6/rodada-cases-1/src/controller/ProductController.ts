@@ -45,6 +45,16 @@ class ProductController {
             res.status(400).send({ message: error.message })
         }
     }
+
+    public searchByCategory = async (req: Request, res: Response) => {
+        try {
+            const tag = req.query.tag as string || ""
+            const response = await this.productBusiness.searchByCategory(tag)
+            res.status(200).send(response)
+        } catch (error: any) {
+            res.status(400).send({ message: error.message })
+        }
+    }
 }
 
 export default ProductController

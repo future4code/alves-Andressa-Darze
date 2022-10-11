@@ -1,4 +1,4 @@
-import { IInputDBDTO, IProductDB, Product } from "../entities/Product"
+import { IInputDBDTO, IProductDB, IProductIdOutput, Product } from "../entities/Product"
 import { BaseDatabase } from "./BaseDatabase"
 
 class ProductDatabase extends BaseDatabase {
@@ -31,9 +31,17 @@ class ProductDatabase extends BaseDatabase {
         .connection(ProductDatabase.TABLE_PRODUCTS)
         .select()
         .where("name", "LIKE", `%${name}%`)
-        
+
         return productsDB
-        
+    }
+
+    public searchByCategory = async (tag: string) => {
+        const productsId : IProductIdOutput  [] = await BaseDatabase
+        .connection(ProductDatabase.TABLE_TAGS_PRODUCTS)
+        .select("product_id")
+        .where({tag})
+    
+        return productsId
     }
 
 }

@@ -73,17 +73,33 @@ class ProductBusiness {
                 product.name,
                 []
             )
-
             const productResponse : IProductDB = {
                 id: newProduct.getId(),
                 name: newProduct.getName()
             }
-
             return productResponse
         })
 
         return products
     }
+
+    public searchByCategory = async (tag: string) => {
+        const productsIdDB = await this.productDatabase.searchByCategory(tag)
+
+       const productsId = productsIdDB.map(product => {
+            return product.product_id
+        })
+
+        let productsByTag : IProductDB[] = []
+
+        for(let id of productsId) {
+            const product = await this.productDatabase.searchById(id)
+            productsByTag.push(product)
+        }
+        return productsByTag
+    }
+
+    
 }
 
 export default ProductBusiness

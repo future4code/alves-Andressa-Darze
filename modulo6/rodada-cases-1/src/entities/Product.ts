@@ -39,3 +39,7 @@ export interface IInputDBDTO {
     products: IProductDB[],
     tags: ITagProductDB[]
 }
+
+export interface IProductIdOutput {
+    product_id: string
+}

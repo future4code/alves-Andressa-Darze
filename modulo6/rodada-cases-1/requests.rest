@@ -137,3 +137,6 @@ GET http://localhost:3003/products/id?id=7533
 
 ### SearchByName
 GET http://localhost:3003/products/name?name=longo
+
+### SearchByCategory
+GET http://localhost:3003/products/tag?tag=festa
