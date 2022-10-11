@@ -133,10 +133,10 @@ Content-Type: application/json
 }
 
 ### SearchById
-GET http://localhost:3003/products/id?id=7533
+GET http://localhost:3003/products/id?id=8293
 
 ### SearchByName
-GET http://localhost:3003/products/name?name=longo
+GET http://localhost:3003/products/name?name=gola
 
 ### SearchByCategory
-GET http://localhost:3003/products/tag?tag=festa
+GET http://localhost:3003/products/tag?tag=metal

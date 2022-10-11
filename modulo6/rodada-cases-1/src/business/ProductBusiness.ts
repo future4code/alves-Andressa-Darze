@@ -1,5 +1,6 @@
 import ProductDatabase from "../database/ProductDatabase";
 import { IInputDBDTO, IProductDB, IProductsInputDTO, ITagProductDB, Product } from "../entities/Product";
+import { MissingFields, ProductNotFound } from "../errors/BaseError";
 import IdGenerator from "../services/IdGenerator";
 
 class ProductBusiness {
@@ -9,6 +10,11 @@ class ProductBusiness {
     ) {}
 
     public insertData = async (input: IProductsInputDTO[]) => {
+
+        if(input.length===0) {
+            throw new MissingFields()
+        }
+
         const products = input.map(product => {
             return new Product(
                 String(product.id),
@@ -60,12 +66,20 @@ class ProductBusiness {
 
         const productDB = await this.productDatabase.searchById(id)
 
+        if(!productDB){
+            throw new ProductNotFound()
+        }
+
         return productDB
     }
 
     public searchByName = async(name: string) => {
 
         const productsDB = await this.productDatabase.searchByName(name)
+
+        if(productsDB.length===0){
+            throw new ProductNotFound()
+        }
         
         const products = productsDB.map(product => {
             const newProduct = new Product(
@@ -85,6 +99,10 @@ class ProductBusiness {
 
     public searchByCategory = async (tag: string) => {
         const productsIdDB = await this.productDatabase.searchByCategory(tag)
+
+        if(productsIdDB.length===0) {
+            throw new ProductNotFound()
+        }
 
        const productsId = productsIdDB.map(product => {
             return product.product_id
