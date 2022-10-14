@@ -116,8 +116,6 @@ class ProductBusiness {
         }
         return productsByTag
     }
-
-    
 }
 
 export default ProductBusiness
