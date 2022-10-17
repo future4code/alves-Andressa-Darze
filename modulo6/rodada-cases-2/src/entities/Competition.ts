@@ -40,3 +40,9 @@ export class Competition {
         return this.status
     }
 }
+
+export interface IAddCompInputDTO {
+    name: string,
+    modality: Modality,
+    unit: string
+}
