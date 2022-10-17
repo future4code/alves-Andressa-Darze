@@ -1,5 +1,5 @@
 import { Modality } from "../entities/Competition";
-import { Result } from "../entities/Result";
+import { IResultDB, Result } from "../entities/Result";
 import { BaseDatabase } from "./BaseDatabase";
 
 class ResultDatabase extends BaseDatabase {
@@ -7,7 +7,7 @@ class ResultDatabase extends BaseDatabase {
     public static TABLE_RES_DARDOS = "Case2_Results_Dardos"
 
     public addResult = async (result: Result) => {
-        const resultDB = {
+        const resultDB : IResultDB = {
             id: result.getId(),
             competition: result.getCompetition(),
             athlete: result.getAthlete(),

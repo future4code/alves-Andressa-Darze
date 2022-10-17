@@ -1,3 +1,10 @@
+export interface IResultDB {
+    id: string,
+    competition: string,
+    athlete: string,
+    value: number
+}
+
 export class Result {
     constructor(
         private id: string,
