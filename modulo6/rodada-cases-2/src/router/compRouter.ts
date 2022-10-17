@@ -15,3 +15,4 @@ const competitionController = new CompetitionController(
 )
 
 compRouter.post("/add", competitionController.addCompetition)
+compRouter.put("/:id", competitionController.changeStatus)

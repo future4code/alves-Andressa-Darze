@@ -1,4 +1,4 @@
-import { Competition, ICompetitionDB } from "../entities/Competition";
+import { Competition, ICompetitionDB, STATUS } from "../entities/Competition";
 import { BaseDatabase } from "./BaseDatabase";
 
 class CompetitionDatabase extends BaseDatabase {
@@ -13,7 +13,14 @@ class CompetitionDatabase extends BaseDatabase {
             status: competition.getStatus()
         }
 
-        await BaseDatabase.connection(CompetitionDatabase.TABLE_COMP).insert(competitionDB)
+        await BaseDatabase.connection(CompetitionDatabase.TABLE_COMP)
+        .insert(competitionDB)
+    }
+
+    public changeStatus = async (id: string, newStatus: STATUS) => {
+        await BaseDatabase.connection(CompetitionDatabase.TABLE_COMP)
+        .update({status: newStatus})
+        .where({id})
     }
 }
 

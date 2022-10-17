@@ -1,4 +1,4 @@
-import { Modality } from "../entities/Competition";
+import { MODALITY } from "../entities/Competition";
 import { IResultDB, Result } from "../entities/Result";
 import { BaseDatabase } from "./BaseDatabase";
 
@@ -14,9 +14,9 @@ class ResultDatabase extends BaseDatabase {
             value: result.getValue()
         }
 
-        if(resultDB.competition === Modality.CEMRASOS) {
+        if(resultDB.competition === MODALITY.CEMRASOS) {
             await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).insert(resultDB)
-        } else if(resultDB.competition === Modality.DARDOS) {
+        } else if(resultDB.competition === MODALITY.DARDOS) {
             await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).insert(resultDB)
         }
 

@@ -1,5 +1,5 @@
 import CompetitionDatabase from "../database/CompetitionDatabase";
-import { Competition, IAddCompInputDTO } from "../entities/Competition";
+import { Competition, IAddCompInputDTO, IChangeStatusInputDTO, MODALITY } from "../entities/Competition";
 import { MissingFields } from "../errors/BaseError";
 import { IdGenerator } from "../services/IdGenerator";
 
@@ -26,6 +26,24 @@ class CompetitionBusiness {
         )
 
         await this.competitionDatabase.createCompetition(competition)
+
+        const response = {
+            message: "Competição criada com sucesso"
+        }
+
+        return response
+    }
+
+    public changeStatus = async (input: IChangeStatusInputDTO) => {
+        const { id, newStatus } = input
+
+        await this.competitionDatabase.changeStatus(id, newStatus)
+
+        const response = {
+            message: "Status da competição alterado com sucesso"
+        }
+
+        return response
     }
 }
 

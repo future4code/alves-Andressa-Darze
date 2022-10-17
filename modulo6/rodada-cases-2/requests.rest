@@ -1,0 +1,17 @@
+### AddCompetition
+POST http://localhost:3003/competitions/add
+Content-Type: application/json
+
+{
+    "name": "Classificatória 100m rasos",
+    "modality": "100 metros rasos",
+    "unit": "m"
+}
+
+### ChangeStatus
+PUT http://localhost:3003/competitions/cc4e61d9-edfb-42d7-bbf9-86aab7ae27a6
+Content-Type: application/json
+
+{
+    "newStatus": "Encerrada"
+}
