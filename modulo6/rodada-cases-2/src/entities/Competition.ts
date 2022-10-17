@@ -3,6 +3,14 @@ export enum Modality {
     DARDOS = "Lançamento de dardos"
 }
 
+export interface ICompetitionDB {
+    id: string,
+    name: string,
+    modality: Modality,
+    unit: string,
+    status: boolean
+}
+
 export class Competition {
     constructor(
         private id: string,
