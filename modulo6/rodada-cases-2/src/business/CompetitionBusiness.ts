@@ -1,6 +1,6 @@
 import CompetitionDatabase from "../database/CompetitionDatabase";
 import { Competition, IAddCompInputDTO, IChangeStatusInputDTO, MODALITY } from "../entities/Competition";
-import { MissingFields } from "../errors/BaseError";
+import { AlreadyExists, MissingFields } from "../errors/BaseError";
 import { IdGenerator } from "../services/IdGenerator";
 
 class CompetitionBusiness {
@@ -14,6 +14,12 @@ class CompetitionBusiness {
 
         if(!name || !modality || !unit) {
             throw new MissingFields()
+        }
+
+        const competitionDB = await this.competitionDatabase.findCompetitionByName(name)
+
+        if( competitionDB && competitionDB.modality === modality) {
+            throw new AlreadyExists()
         }
 
         const id = this.idGenerator.generate()

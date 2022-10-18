@@ -9,3 +9,27 @@ create table Case2_Competitions(
 
 select * from `Case2_Competitions`;
 
+
+create table Case2_Results_Rasos(
+    id varchar(255) primary key,
+    competition varchar(255) not null,
+    athlete varchar(255) not null,
+    value float not null
+);
+
+select * from `Case2_Results_Rasos`;
+
+create table Case2_Results_Dardos(
+    id varchar(255) primary key,
+    competition varchar(255) not null,
+    athlete varchar(255) not null,
+    value float not null
+);
+
+select * from `Case2_Results_Dardos`;
+
+
+-- drop table `Case2_Results_Dardos`;
+-- drop table `Case2_Results_Rasos`
+
+ 

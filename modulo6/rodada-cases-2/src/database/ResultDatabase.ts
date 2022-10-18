@@ -14,12 +14,23 @@ class ResultDatabase extends BaseDatabase {
             value: result.getValue()
         }
 
-        if(resultDB.competition === MODALITY.CEMRASOS) {
+        if(result.getModality() === MODALITY.CEMRASOS) {
             await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).insert(resultDB)
-        } else if(resultDB.competition === MODALITY.DARDOS) {
+        } else if(result.getModality() === MODALITY.DARDOS) {
             await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).insert(resultDB)
         }
 
+    }
+
+    public findResultsByAthlete = async (athlete: string, competition: string, modality: MODALITY) => {
+        if(modality === MODALITY.CEMRASOS) {
+            const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).select("value").where({competition, athlete})
+            return resultsDB
+        } else if (modality === MODALITY.DARDOS) {
+            const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).select("value").where({competition, athlete})
+            return resultsDB
+        }
+        
     }
 }
 

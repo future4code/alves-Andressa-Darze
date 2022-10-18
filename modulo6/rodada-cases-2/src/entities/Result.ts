@@ -1,3 +1,5 @@
+import { MODALITY } from "./Competition"
+
 export interface IResultDB {
     id: string,
     competition: string,
@@ -9,6 +11,7 @@ export class Result {
     constructor(
         private id: string,
         private competition: string,
+        private modality: MODALITY,
         private athlete: string,
         private value: number
     ) {}
@@ -21,6 +24,10 @@ export class Result {
         return this.competition
     }
 
+    public getModality = () => {
+        return this.modality
+    }
+
     public getAthlete = () => {
         return this.athlete
     }
@@ -29,4 +36,11 @@ export class Result {
         return this.value
     }
 
+}
+
+export interface IAddResultInputDTO {
+    competition: string,
+    modality: MODALITY,
+    athlete: string,
+    value: number
 }

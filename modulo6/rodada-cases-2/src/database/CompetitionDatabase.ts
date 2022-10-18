@@ -22,6 +22,15 @@ class CompetitionDatabase extends BaseDatabase {
         .update({status: newStatus})
         .where({id})
     }
+
+    public findCompetitionByName = async (competition: string) => {
+        const competitionDB : ICompetitionDB[] = await BaseDatabase
+        .connection(CompetitionDatabase.TABLE_COMP)
+        .select()
+        .where({name: competition})
+
+        return competitionDB[0]
+    }
 }
 
 export default CompetitionDatabase
