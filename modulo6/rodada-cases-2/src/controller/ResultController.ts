@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import ResultBusiness from "../business/ResultBusiness";
-import { IAddResultInputDTO } from "../entities/Result";
+import { IAddResultInputDTO, IGetRankingInputDTO, IGetRankingOutputDTO, IRankingDB } from "../entities/Result";
 
 class ResultController {
     constructor(
@@ -21,6 +21,25 @@ class ResultController {
             const response = await this.resultBusiness.addResult(input)
 
             res.status(201).send(response)
+
+        } catch (error: any) {
+            res.status(400).send({ message: error.message })
+        }
+    }
+
+    public getRanking = async (req: Request, res: Response) => {
+        try {
+            const { competition, modality } = req.body
+
+            const input : IGetRankingInputDTO = {
+                competition,
+                modality
+            }
+
+            const response : IGetRankingOutputDTO = await this.resultBusiness.getRanking(input)
+            console.log(response)
+
+            res.status(200).send(response)
 
         } catch (error: any) {
             res.status(400).send({ message: error.message })

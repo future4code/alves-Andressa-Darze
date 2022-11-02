@@ -42,3 +42,9 @@ export class LimitReached extends BaseError {
         super("Já foram inseridos os resultados das 3 tentativas permitidas da competição nesta modalidade.", 404)
     }
 }
+
+export class NullRanking extends BaseError {
+    constructor(){
+        super("Não há cadastros de resultados para esta competição", 404)
+    }
+}

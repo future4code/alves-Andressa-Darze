@@ -1,6 +1,7 @@
 import { MODALITY } from "../entities/Competition";
-import { IResultDB, Result } from "../entities/Result";
+import { IRankingDB, IResultDB, Result } from "../entities/Result";
 import { BaseDatabase } from "./BaseDatabase";
+import knex from "knex";
 
 class ResultDatabase extends BaseDatabase {
     public static TABLE_RES_RASOS = "Case2_Results_Rasos"
@@ -10,13 +11,14 @@ class ResultDatabase extends BaseDatabase {
         const resultDB : IResultDB = {
             id: result.getId(),
             competition: result.getCompetition(),
+            modality: result.getModality(),
             athlete: result.getAthlete(),
             value: result.getValue()
         }
 
-        if(result.getModality() === MODALITY.CEMRASOS) {
+        if(resultDB.modality === MODALITY.CEMRASOS) {
             await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).insert(resultDB)
-        } else if(result.getModality() === MODALITY.DARDOS) {
+        } else if(resultDB.modality === MODALITY.DARDOS) {
             await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).insert(resultDB)
         }
 
@@ -24,14 +26,59 @@ class ResultDatabase extends BaseDatabase {
 
     public findResultsByAthlete = async (athlete: string, competition: string, modality: MODALITY) => {
         if(modality === MODALITY.CEMRASOS) {
-            const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).select("value").where({competition, athlete})
+            const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).select().where({competition, athlete})
             return resultsDB
         } else if (modality === MODALITY.DARDOS) {
-            const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).select("value").where({competition, athlete})
+            const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).select().where({competition, athlete})
             return resultsDB
         }
         
     }
+
+    // public getRanking = async (competition: string, modality: MODALITY) => {
+    //     if(modality === MODALITY.CEMRASOS) {
+    //         const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).select().where({competition}).orderBy("value", "asc")
+    //         return resultsDB
+    //     } else if (modality === MODALITY.DARDOS) {
+    //         const resultsDB = await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).select("athlete", max("value")).where({competition}).groupBy("athlete").orderBy("value","desc")
+    //         return resultsDB
+    //     }
+    // }
+
+
+    // só tá dando undefined .. PQQQ????
+
+    // public getRanking = async (competition: string, modality: MODALITY) => {
+    //     if(modality === MODALITY.CEMRASOS) {
+    //         const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).select().where({competition}).orderBy("value", "asc")
+    //         return resultsDB
+    //     } else if (modality === MODALITY.DARDOS) {
+    //         const resultsDB : IResultDB[] = await BaseDatabase.connection.raw(`
+    //         select competition, athlete, max(value) from ${ResultDatabase.TABLE_RES_DARDOS} where competition = ${competition} group by athlete order by max(value) desc;
+    //         `)
+    //         return resultsDB
+    //     }
+    // }
+    public getRanking = async (competition: string, modality: MODALITY) => {
+        
+        if(modality === MODALITY.CEMRASOS) {
+            const resultsDB : IResultDB[] = await BaseDatabase
+            .connection(ResultDatabase.TABLE_RES_RASOS)
+            .select()
+            .where({competition})
+            .orderBy("value", "asc")
+            return resultsDB
+
+        } else if (modality === MODALITY.DARDOS) {
+            const resultsDB : IResultDB[] = await BaseDatabase.connection.raw(`
+            SELECT athlete, max(value) FROM ${ResultDatabase.TABLE_RES_DARDOS} WHERE competition = ${competition} GROUP BY athlete ORDER BY max(value) DESC;
+            `)
+            console.log(resultsDB)
+            return resultsDB
+        }
+
+    }
+    
 }
 
 export default ResultDatabase

@@ -3,6 +3,13 @@ import { MODALITY } from "./Competition"
 export interface IResultDB {
     id: string,
     competition: string,
+    modality: MODALITY,
+    athlete: string,
+    value: number
+}
+
+export interface IRankingDB {
+    competition: string, // remover depois
     athlete: string,
     value: number
 }
@@ -43,4 +50,18 @@ export interface IAddResultInputDTO {
     modality: MODALITY,
     athlete: string,
     value: number
+}
+
+export interface IGetRankingInputDTO {
+    competition: string,
+    modality: MODALITY
+}
+
+export interface IGetRankingRanking {
+    position: number,
+    athlete: string,
+    value: number
+}
+export interface IGetRankingOutputDTO {
+    ranking: IGetRankingRanking[]
 }

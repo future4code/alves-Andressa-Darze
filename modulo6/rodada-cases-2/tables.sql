@@ -32,4 +32,10 @@ select * from `Case2_Results_Dardos`;
 -- drop table `Case2_Results_Dardos`;
 -- drop table `Case2_Results_Rasos`
 
- 
+ select competition, athlete, max(value) from `Case2_Results_Dardos` where competition = "Classificatoria lançamento de dardos" group by athlete order by max(value) desc;
+
+
+select competition, athlete, value from `Case2_Results_Rasos` where competition = "Classificatoria 100m rasos" order by value ASC;
+
+
+ select athlete, max(value) from `Case2_Results_Dardos` group by athlete order by max(value) desc;

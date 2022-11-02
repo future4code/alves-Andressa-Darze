@@ -1,8 +1,8 @@
 import CompetitionDatabase from "../database/CompetitionDatabase";
 import ResultDatabase from "../database/ResultDatabase";
 import { MODALITY, STATUS } from "../entities/Competition";
-import { IAddResultInputDTO, Result } from "../entities/Result";
-import { CompetitionFinished, LimitReached, MissingFields, NonExistent, ResultAlreadyInserted } from "../errors/BaseError";
+import { IAddResultInputDTO, IGetRankingInputDTO, IGetRankingOutputDTO, IGetRankingRanking, Result } from "../entities/Result";
+import { CompetitionFinished, LimitReached, MissingFields, NonExistent, NullRanking, ResultAlreadyInserted } from "../errors/BaseError";
 import { IdGenerator } from "../services/IdGenerator";
 
 class ResultBusiness {
@@ -31,8 +31,6 @@ class ResultBusiness {
 
         const resultsDB = await this.resultDatabase.findResultsByAthlete(athlete, competition, modality)
 
-        console.log(resultsDB) // APAGAR DEPOIS
-
         if(modality === MODALITY.CEMRASOS && resultsDB?.length !== 0) {
             throw new ResultAlreadyInserted()
         } else if(modality ===  MODALITY.DARDOS && resultsDB?.length === 3) {
@@ -56,6 +54,42 @@ class ResultBusiness {
         }
 
         return response
+    }
+
+    public getRanking = async (input: IGetRankingInputDTO) => {
+        const { competition, modality } = input
+
+        const rankingDB = await this.resultDatabase.getRanking(competition, modality)
+
+        if(!rankingDB) {
+            throw new NullRanking()
+        }
+
+        const ranking = rankingDB.map(result => {
+            const newResult = new Result(
+                result.id,
+                result.competition,
+                result.modality,
+                result.athlete,
+                result.value
+            )
+            const rankingResponse : IGetRankingRanking = {
+                position: 0,
+                athlete: newResult.getAthlete(),
+                value: newResult.getValue()
+            }
+            return rankingResponse
+        })
+
+        for(let athlete of ranking) {
+            athlete.position = ranking.indexOf(athlete) + 1
+        }
+
+        const response : IGetRankingOutputDTO = {
+            ranking
+        }
+
+       return response
     }
 }
 

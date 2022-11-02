@@ -16,3 +16,4 @@ const resultController = new ResultController(
 )
 
 resultRouter.post("/add", resultController.addResult)
+resultRouter.get("/ranking", resultController.getRanking)

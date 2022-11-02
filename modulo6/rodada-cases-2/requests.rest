@@ -21,10 +21,17 @@ POST http://localhost:3003/results/add
 Content-Type: application/json
 
 {
-    "competition": "Classificatória 100m rasos",
-    "modality": "100 metros rasos",
-    "athlete": "TESTE",
-    "value": 13.0
+    "competition": "Quartas de final lançamento de dardos",
+    "modality": "Lançamento de dardos",
+    "athlete": "TESTE 2",
+    "value": 230.0
 }
 
-###
+### GetRanking
+GET http://localhost:3003/results/ranking
+Content-Type: application/json
+
+{
+    "competition": "Classificatória lançamento de dardos",
+    "modality": "Lançamento de dardos"
+}
