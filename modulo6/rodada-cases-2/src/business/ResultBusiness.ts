@@ -1,7 +1,8 @@
+import { stringify } from "querystring";
 import CompetitionDatabase from "../database/CompetitionDatabase";
 import ResultDatabase from "../database/ResultDatabase";
 import { MODALITY, STATUS } from "../entities/Competition";
-import { IAddResultInputDTO, IGetRankingInputDTO, IGetRankingOutputDTO, IGetRankingRanking, Result } from "../entities/Result";
+import { IAddResultInputDTO, IGetRankingInputDTO, IGetRankingOutputDTO, IGetRankingRanking, IResultDardosDB, IResultDB, Result } from "../entities/Result";
 import { CompetitionFinished, LimitReached, MissingFields, NonExistent, NullRanking, ResultAlreadyInserted } from "../errors/BaseError";
 import { IdGenerator } from "../services/IdGenerator";
 
@@ -65,31 +66,58 @@ class ResultBusiness {
             throw new NullRanking()
         }
 
-        const ranking = rankingDB.map(result => {
-            const newResult = new Result(
-                result.id,
-                result.competition,
-                result.modality,
-                result.athlete,
-                result.value
-            )
-            const rankingResponse : IGetRankingRanking = {
-                position: 0,
-                athlete: newResult.getAthlete(),
-                value: newResult.getValue()
+        if( modality === MODALITY.CEMRASOS) {
+            const ranking = rankingDB.map((result: IResultDB) => {
+                const newResult = new Result(
+                    result.id,
+                    result.competition,
+                    result.modality,
+                    result.athlete,
+                    result.value
+                )
+                const rankingResponse : IGetRankingRanking = {
+                    position: 0,
+                    athlete: newResult.getAthlete(),
+                    value: newResult.getValue()
+                }
+                return rankingResponse
+            })
+
+            for(let athlete of ranking) {
+                athlete.position = ranking.indexOf(athlete) + 1
             }
-            return rankingResponse
-        })
 
-        for(let athlete of ranking) {
-            athlete.position = ranking.indexOf(athlete) + 1
+            const response : IGetRankingOutputDTO = {
+                ranking
+            }
+
+            return ranking
+
+
+        } else if(modality === MODALITY.DARDOS) {
+            const ranking = rankingDB.map((result: IResultDardosDB) => { 
+                
+                const rankingResponse = {
+                    position: 0,
+                    athlete: result.athlete, 
+                    value: result["max(value)"]
+                }
+                return rankingResponse 
+            })
+
+            for(let athlete of ranking) {
+                athlete.position = ranking.indexOf(athlete) + 1
+            }
+
+            const response : IGetRankingOutputDTO = {
+                ranking
+            }
+            
+            console.log(ranking) // APAGAR DEPOIS
+            return ranking
         }
-
-        const response : IGetRankingOutputDTO = {
-            ranking
-        }
-
-       return response
+        
+       
     }
 }
 

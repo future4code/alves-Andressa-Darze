@@ -36,6 +36,3 @@ select * from `Case2_Results_Dardos`;
 
 
 select competition, athlete, value from `Case2_Results_Rasos` where competition = "Classificatoria 100m rasos" order by value ASC;
-
-
- select athlete, max(value) from `Case2_Results_Dardos` group by athlete order by max(value) desc;

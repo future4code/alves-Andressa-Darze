@@ -1,5 +1,5 @@
 import { MODALITY } from "../entities/Competition";
-import { IRankingDB, IResultDB, Result } from "../entities/Result";
+import { INewResult, IRankingDB, IResultDB, Result } from "../entities/Result";
 import { BaseDatabase } from "./BaseDatabase";
 import knex from "knex";
 
@@ -16,10 +16,17 @@ class ResultDatabase extends BaseDatabase {
             value: result.getValue()
         }
 
+        const newResult : INewResult = {
+            id: resultDB.id,
+            competition: resultDB.competition,
+            athlete: resultDB.athlete,
+            value: resultDB.value
+        }
+
         if(resultDB.modality === MODALITY.CEMRASOS) {
-            await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).insert(resultDB)
+            await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).insert(newResult)
         } else if(resultDB.modality === MODALITY.DARDOS) {
-            await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).insert(resultDB)
+            await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).insert(newResult)
         }
 
     }
@@ -32,33 +39,8 @@ class ResultDatabase extends BaseDatabase {
             const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).select().where({competition, athlete})
             return resultsDB
         }
-        
     }
 
-    // public getRanking = async (competition: string, modality: MODALITY) => {
-    //     if(modality === MODALITY.CEMRASOS) {
-    //         const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).select().where({competition}).orderBy("value", "asc")
-    //         return resultsDB
-    //     } else if (modality === MODALITY.DARDOS) {
-    //         const resultsDB = await BaseDatabase.connection(ResultDatabase.TABLE_RES_DARDOS).select("athlete", max("value")).where({competition}).groupBy("athlete").orderBy("value","desc")
-    //         return resultsDB
-    //     }
-    // }
-
-
-    // só tá dando undefined .. PQQQ????
-
-    // public getRanking = async (competition: string, modality: MODALITY) => {
-    //     if(modality === MODALITY.CEMRASOS) {
-    //         const resultsDB : IResultDB[] = await BaseDatabase.connection(ResultDatabase.TABLE_RES_RASOS).select().where({competition}).orderBy("value", "asc")
-    //         return resultsDB
-    //     } else if (modality === MODALITY.DARDOS) {
-    //         const resultsDB : IResultDB[] = await BaseDatabase.connection.raw(`
-    //         select competition, athlete, max(value) from ${ResultDatabase.TABLE_RES_DARDOS} where competition = ${competition} group by athlete order by max(value) desc;
-    //         `)
-    //         return resultsDB
-    //     }
-    // }
     public getRanking = async (competition: string, modality: MODALITY) => {
         
         if(modality === MODALITY.CEMRASOS) {
@@ -70,13 +52,13 @@ class ResultDatabase extends BaseDatabase {
             return resultsDB
 
         } else if (modality === MODALITY.DARDOS) {
-            const resultsDB : IResultDB[] = await BaseDatabase.connection.raw(`
-            SELECT athlete, max(value) FROM ${ResultDatabase.TABLE_RES_DARDOS} WHERE competition = ${competition} GROUP BY athlete ORDER BY max(value) DESC;
+            const resultsDB = await BaseDatabase.connection.raw(`
+            SELECT competition, athlete, max(value) FROM ${ResultDatabase.TABLE_RES_DARDOS} WHERE competition = "${competition}" GROUP BY athlete ORDER BY max(value) DESC;
+            
             `)
-            console.log(resultsDB)
-            return resultsDB
+            console.log(resultsDB[0])
+            return resultsDB[0]
         }
-
     }
     
 }

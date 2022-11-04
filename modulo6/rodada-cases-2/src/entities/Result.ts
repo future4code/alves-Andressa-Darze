@@ -8,6 +8,20 @@ export interface IResultDB {
     value: number
 }
 
+export interface INewResult {
+    id: string,
+    competition: string,
+    athlete: string,
+    value: number
+}
+
+export interface IResultDardosDB {
+    competition: string,
+    athlete: string,
+    'max(value)': number
+}
+
+
 export interface IRankingDB {
     competition: string, // remover depois
     athlete: string,

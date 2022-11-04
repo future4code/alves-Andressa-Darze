@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "name": "Quartas de final 100m rasos",
-    "modality": "Lançamento de dardos",
+    "modality": "100 metros rasos",
     "unit": "m"
 }
 
@@ -21,10 +21,10 @@ POST http://localhost:3003/results/add
 Content-Type: application/json
 
 {
-    "competition": "Quartas de final lançamento de dardos",
-    "modality": "Lançamento de dardos",
-    "athlete": "TESTE 2",
-    "value": 230.0
+    "competition": "Quartas de final 100m rasos",
+    "modality": "100 metros rasos",
+    "athlete": "ANDRA",
+    "value": 15.1
 }
 
 ### GetRanking
@@ -32,6 +32,6 @@ GET http://localhost:3003/results/ranking
 Content-Type: application/json
 
 {
-    "competition": "Classificatória lançamento de dardos",
-    "modality": "Lançamento de dardos"
+    "competition": "Quartas de final 100m rasos",
+    "modality": "100 metros rasos"
 }
