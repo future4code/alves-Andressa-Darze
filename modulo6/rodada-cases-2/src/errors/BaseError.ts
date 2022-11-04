@@ -9,7 +9,7 @@ export class BaseError extends Error {
 
 export class MissingFields extends BaseError {
     constructor(){
-        super("Informações devem ser passadas!", 404)
+        super("Informações devem ser passadas!", 400)
     }
 }
 
@@ -21,25 +21,25 @@ export class NonExistent extends BaseError {
 
 export class CompetitionFinished extends BaseError {
     constructor(){
-        super("Esta competição já foi encerrada. Não é possível cadastrar novos resultados.", 404)
+        super("Esta competição já foi encerrada. Não é possível cadastrar novos resultados.", 422)
     }
 }
 
 export class AlreadyExists extends BaseError {
     constructor(){
-        super("Uma competição com este nome já foi criada nesta modalidade.", 404)
+        super("Uma competição com este nome já foi criada nesta modalidade.", 409)
     }
 }
 
 export class ResultAlreadyInserted extends BaseError {
     constructor(){
-        super("Resultado deste atleta nesta competição já foi computado.", 404)
+        super("Resultado deste atleta nesta competição já foi computado.", 409)
     }
 }
 
 export class LimitReached extends BaseError {
     constructor(){
-        super("Já foram inseridos os resultados das 3 tentativas permitidas da competição nesta modalidade.", 404)
+        super("Já foram inseridos os resultados das 3 tentativas permitidas da competição nesta modalidade.", 409)
     }
 }
 

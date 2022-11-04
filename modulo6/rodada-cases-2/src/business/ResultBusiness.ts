@@ -60,9 +60,15 @@ class ResultBusiness {
     public getRanking = async (input: IGetRankingInputDTO) => {
         const { competition, modality } = input
 
+        const competitionDB = await this.competitionDatabase.findCompetitionByName(competition)
+
+        if(!competitionDB) {
+            throw new NonExistent()
+        }
+
         const rankingDB = await this.resultDatabase.getRanking(competition, modality)
 
-        if(!rankingDB) {
+        if(!rankingDB || rankingDB.length === 0) {
             throw new NullRanking()
         }
 
@@ -112,8 +118,7 @@ class ResultBusiness {
             const response : IGetRankingOutputDTO = {
                 ranking
             }
-            
-            console.log(ranking) // APAGAR DEPOIS
+        
             return ranking
         }
         

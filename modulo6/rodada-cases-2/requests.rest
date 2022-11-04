@@ -3,9 +3,9 @@ POST http://localhost:3003/competitions/add
 Content-Type: application/json
 
 {
-    "name": "Quartas de final 100m rasos",
+    "name": "Final 100m rasos",
     "modality": "100 metros rasos",
-    "unit": "m"
+    "unit": "s"
 }
 
 ### ChangeStatus
@@ -13,7 +13,7 @@ PUT http://localhost:3003/competitions/cc4e61d9-edfb-42d7-bbf9-86aab7ae27a6
 Content-Type: application/json
 
 {
-    "newStatus": "Em andamento"
+    "newStatus": "Encerrada"
 }
 
 ### AddResult
@@ -32,6 +32,6 @@ GET http://localhost:3003/results/ranking
 Content-Type: application/json
 
 {
-    "competition": "Quartas de final 100m rasos",
+    "competition": "Classificatória 100m rasos",
     "modality": "100 metros rasos"
 }

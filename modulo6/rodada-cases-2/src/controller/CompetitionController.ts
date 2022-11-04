@@ -38,7 +38,7 @@ class CompetitionController {
     
             const response = await this.competitionBusiness.changeStatus(input)
     
-            res.status(201).send(response)
+            res.status(200).send(response)
 
         } catch (error: any) {
             res.status(400).send({ message: error.message })
