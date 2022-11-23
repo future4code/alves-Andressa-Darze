@@ -18,7 +18,7 @@ class PostDatabase extends BaseDatabase {
         .insert(postDB)
     }
 
-    public getAllPosts = async () => {
+    public getAllPosts = async () : Promise<IPostDB[]>=> {
         const postsDB : IPostDB[] = await BaseDatabase
         .connection(PostDatabase.TABLE_POSTS)
         .select()
@@ -26,7 +26,7 @@ class PostDatabase extends BaseDatabase {
         return postsDB
     }
 
-    public getLikes = async (postId: string) => {
+    public getLikes = async (postId: string) : Promise<number> => {
         const result: any = await BaseDatabase
         .connection(PostDatabase.TABLE_LIKES)
         .select()
@@ -36,7 +36,7 @@ class PostDatabase extends BaseDatabase {
         return result[0].likes as number
     }
 
-    public findById = async (id: string) => {
+    public findById = async (id: string) : Promise<IPostDB | undefined> => {
         const postDB : IPostDB[] = await BaseDatabase
         .connection(PostDatabase.TABLE_POSTS)
         .select()
@@ -64,13 +64,13 @@ class PostDatabase extends BaseDatabase {
         .insert(likeDB)
     }
 
-    public verifyLike = async (postId: string, userId: string) => {
+    public verifyLike = async (postId: string, userId: string) : Promise<ILikeByUserIdDB | undefined> => {
         const likesDB : ILikeByUserIdDB[] = await BaseDatabase
         .connection(PostDatabase.TABLE_LIKES)
         .select('id')
         .where({post_id: postId, user_id: userId})
         
-        return likesDB
+        return likesDB[0]
     }
 
     public dislikePost = async (postId: string, userId: string) => {

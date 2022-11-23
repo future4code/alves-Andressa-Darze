@@ -54,11 +54,11 @@ export class PostDatabaseMock extends BaseDatabase {
 
     public dislikePost = async (postId: string, userId: string) : Promise<void> => {}
 
-    public verifyLike = async (postId: string, userId: string) : Promise<ILikeByUserIdDB[] | undefined> => {
+    public verifyLike = async (postId: string, userId: string) : Promise<ILikeByUserIdDB | undefined> => {
         if (postId == "201" && userId == "id-mock") {
-            return [{
+            return {
                 userId: "id-mock"
-            }]
+            }
         }
 
         return undefined

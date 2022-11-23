@@ -134,7 +134,7 @@ class PostBusiness {
 
         const verifyLike = await this.postDatabase.verifyLike(postId, userId)
 
-        if(verifyLike.length > 0){
+        if(verifyLike){
             throw new LikeNotAuthorized()
         }
 
@@ -174,7 +174,7 @@ class PostBusiness {
 
         const verifyLike = await this.postDatabase.verifyLike(postId, userId)
 
-        if(!verifyLike.length){
+        if(!verifyLike){
             throw new dislikeNotAuthorized()
         }
 
