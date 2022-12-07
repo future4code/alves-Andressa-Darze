@@ -1,0 +1,2 @@
+-- Active: 1663621767455@@35.226.146.116@3306@alves-andressa-darze
+ALTER TABLE to_do_list_users ADD COLUMN role ENUM ("NORMAL", "ADMIN") DEFAULT "NORMAL" NOT NULL

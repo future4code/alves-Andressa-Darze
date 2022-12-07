@@ -1,0 +1,25 @@
+# @name signup
+
+POST http://localhost:3003/user/signup
+Content-Type: application/json
+
+{
+    "email": "andressa@gmail.com",
+    "password": "andressa123"
+}
+
+###
+
+POST http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+    "email": "andressa@gmail.com",
+    "password": "andressa123"
+}
+
+### 
+
+@id = {{signup.response.body.newUser.id}}
+
+GET http://localhost:3003/user/profile/{{id}}
