@@ -1,12 +1,10 @@
 import ProductDatabase from "../database/ProductDatabase";
 import { IInputDBDTO, IProductDB, IProductsInputDTO, ITagProductDB, Product } from "../entities/Product";
 import { MissingFields, ProductNotFound } from "../errors/BaseError";
-import IdGenerator from "../services/IdGenerator";
 
 class ProductBusiness {
     constructor(
-        private productDatabase: ProductDatabase,
-        private idGenerator: IdGenerator
+        private productDatabase: ProductDatabase
     ) {}
 
     public insertData = async (input: IProductsInputDTO[]) => {
@@ -59,10 +57,13 @@ class ProductBusiness {
         }
 
         return response
-
     }
 
     public searchById = async(id: string) => {
+
+        if(!id) {
+            throw new MissingFields()
+        }
 
         const productDB = await this.productDatabase.searchById(id)
 
@@ -98,6 +99,11 @@ class ProductBusiness {
     }
 
     public searchByCategory = async (tag: string) => {
+
+        if(!tag) {
+            throw new MissingFields()
+        }
+
         const productsIdDB = await this.productDatabase.searchByCategory(tag)
 
         if(productsIdDB.length===0) {
@@ -111,7 +117,7 @@ class ProductBusiness {
         let productsByTag : IProductDB[] = []
 
         for(let id of productsId) {
-            const product = await this.productDatabase.searchById(id)
+            const product = await this.productDatabase.searchById(id) as IProductDB
             productsByTag.push(product)
         }
         return productsByTag

@@ -14,4 +14,11 @@ select * from `Case1_Products`;
 
 select * from `Case1_Tags_Products`;
 
+drop table Case1_Tags_Products;
+
+drop table `Case1_Products`;
+
+
+
+
 

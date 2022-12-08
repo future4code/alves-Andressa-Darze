@@ -17,7 +17,7 @@ class ProductDatabase extends BaseDatabase {
         .insert(tags)
     }
 
-    public searchById = async (id: string) => {
+    public searchById = async (id: string) : Promise<IProductDB | undefined> => {
         const productDB : IProductDB[] = await BaseDatabase
         .connection(ProductDatabase.TABLE_PRODUCTS)
         .select()
@@ -35,15 +35,14 @@ class ProductDatabase extends BaseDatabase {
         return productsDB
     }
 
-    public searchByCategory = async (tag: string) => {
-        const productsId : IProductIdOutput  [] = await BaseDatabase
+    public searchByCategory = async (tag: string) : Promise<IProductIdOutput[]> => {
+        const productsId : IProductIdOutput[] = await BaseDatabase
         .connection(ProductDatabase.TABLE_TAGS_PRODUCTS)
         .select("product_id")
         .where({tag})
     
         return productsId
     }
-
 }
 
 export default ProductDatabase
