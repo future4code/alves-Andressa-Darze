@@ -97,7 +97,7 @@ class ResultBusiness {
                 ranking
             }
 
-            return ranking
+            return response
 
 
         } else if(modality === MODALITY.DARDOS) {

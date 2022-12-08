@@ -1,5 +1,5 @@
 import { MODALITY } from "../entities/Competition";
-import { INewResult, IRankingDB, IResultDB, Result } from "../entities/Result";
+import { INewResult, IRankingDB, IResultDardosDB, IResultDB, Result } from "../entities/Result";
 import { BaseDatabase } from "./BaseDatabase";
 import knex from "knex";
 
@@ -54,9 +54,8 @@ class ResultDatabase extends BaseDatabase {
         } else if (modality === MODALITY.DARDOS) {
             const resultsDB = await BaseDatabase.connection.raw(`
             SELECT competition, athlete, max(value) FROM ${ResultDatabase.TABLE_RES_DARDOS} WHERE competition = "${competition}" GROUP BY athlete ORDER BY max(value) DESC;
-            
             `)
-            console.log(resultsDB[0])
+
             return resultsDB[0]
         }
     }

@@ -32,6 +32,6 @@ GET http://localhost:3003/results/ranking
 Content-Type: application/json
 
 {
-    "competition": "Classificatória 100m rasos",
-    "modality": "100 metros rasos"
+    "competition": "Classificatória lançamento de dardos",
+    "modality": "Lançamento de dardos"
 }

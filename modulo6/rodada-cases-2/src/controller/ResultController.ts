@@ -37,7 +37,6 @@ class ResultController {
             }
 
             const response : IGetRankingOutputDTO = await this.resultBusiness.getRanking(input)
-            console.log(response)
 
             res.status(200).send(response)
 
