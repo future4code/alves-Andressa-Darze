@@ -24,6 +24,11 @@ export class CompetitionFinished extends BaseError {
         super("Esta competição já foi encerrada. Não é possível cadastrar novos resultados.", 422)
     }
 }
+export class SameStatus extends BaseError {
+    constructor(){
+        super("Este já é o status desta competição", 409)
+    }
+}
 
 export class AlreadyExists extends BaseError {
     constructor(){

@@ -32,4 +32,20 @@ export class CompetitionDatabaseMock extends BaseDatabase {
                 return undefined
         }
     }
+
+    public findCompetitionById = async (id: string) : Promise<ICompetitionDB | undefined> => {
+        switch (id) {
+            case "id-mock":
+                const competitionA : ICompetitionDB = {
+                    id: "id-mock",
+                    name: "Mock 100 metros rasos 1",
+                    modality: MODALITY.CEMRASOS,
+                    unit: "s",
+                    status: STATUS.ONGOING
+                }
+                return competitionA
+            default:
+                return undefined
+        }
+    }
 }

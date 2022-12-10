@@ -31,6 +31,15 @@ class CompetitionDatabase extends BaseDatabase {
 
         return competitionDB[0]
     }
+
+    public findCompetitionById = async (id: string) : Promise<ICompetitionDB | undefined> => {
+        const competitionDB : ICompetitionDB[] = await BaseDatabase
+        .connection(CompetitionDatabase.TABLE_COMP)
+        .select()
+        .where({id})
+
+        return competitionDB[0]
+    }
 }
 
 export default CompetitionDatabase

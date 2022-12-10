@@ -1,6 +1,6 @@
 import CompetitionDatabase from "../database/CompetitionDatabase";
-import { Competition, IAddCompInputDTO, IChangeStatusInputDTO, MODALITY } from "../entities/Competition";
-import { AlreadyExists, MissingFields } from "../errors/BaseError";
+import { Competition, IAddCompInputDTO, IChangeStatusInputDTO, MODALITY, STATUS } from "../entities/Competition";
+import { AlreadyExists, MissingFields, NonExistent, SameStatus } from "../errors/BaseError";
 import { IdGenerator } from "../services/IdGenerator";
 
 class CompetitionBusiness {
@@ -42,6 +42,16 @@ class CompetitionBusiness {
 
     public changeStatus = async (input: IChangeStatusInputDTO) => {
         const { id, newStatus } = input
+
+        const competitionDB = await this.competitionDatabase.findCompetitionById(id)
+
+        if(!competitionDB) {
+            throw new NonExistent()
+        }
+
+        if(competitionDB.status === newStatus) {
+            throw new SameStatus()
+        }
 
         await this.competitionDatabase.changeStatus(id, newStatus)
 

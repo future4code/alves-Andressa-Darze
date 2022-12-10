@@ -13,7 +13,7 @@ PUT http://localhost:3003/competitions/cc4e61d9-edfb-42d7-bbf9-86aab7ae27a6
 Content-Type: application/json
 
 {
-    "newStatus": "Encerrada"
+    "newStatus": "Em andamento"
 }
 
 ### AddResult
