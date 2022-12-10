@@ -1,0 +1,45 @@
+### Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "Bianca",
+    "email": "bianca@gmail.com",
+    "password": "bianca123"
+}
+
+### Login
+
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "bianca@gmail.com",
+    "password": "bianca123"
+}
+
+### AddPost
+POST http://localhost:3003/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0ZDM0YWE4LTJhM2QtNDhhYy1hMzBkLThhZWUzMDgzN2NmNiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQxMzg4MzIsImV4cCI6MTY2NDE0MjQzMn0.HephFsFq0f0aHEZ9pOt7EXRv4d1w4cYQPRI28o0uAk8
+Content-Type: application/json
+
+{
+    "content": "hellooooooooooooooooooo!!!!"
+}
+
+### GetAllPosts
+GET http://localhost:3003/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0ZDM0YWE4LTJhM2QtNDhhYy1hMzBkLThhZWUzMDgzN2NmNiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQxMzg4MzIsImV4cCI6MTY2NDE0MjQzMn0.HephFsFq0f0aHEZ9pOt7EXRv4d1w4cYQPRI28o0uAk8
+
+### DeletePost
+
+DELETE http://localhost:3003/posts/a7097266-bb38-4e8f-ac3e-76e927221a03
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhmNWYzZWI5LWY0YzktNDc0Ni04OWFkLTczZjJkMmNiY2VlNCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQwNTAxOTcsImV4cCI6MTY2NDA1Mzc5N30.sQJlTTbs3pEkAcsFjBv9WBmwYLnYXvEQdaw9Rw1O9Ag
+
+### LikePost
+POST http://localhost:3003/posts/like/979d1568-10aa-4dc3-9455-71db42bc9792
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0ZDM0YWE4LTJhM2QtNDhhYy1hMzBkLThhZWUzMDgzN2NmNiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQxMzg4MzIsImV4cCI6MTY2NDE0MjQzMn0.HephFsFq0f0aHEZ9pOt7EXRv4d1w4cYQPRI28o0uAk8
+
+### DislikePost
+DELETE http://localhost:3003/posts/like/979d1568-10aa-4dc3-9455-71db42bc9792
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0ZDM0YWE4LTJhM2QtNDhhYy1hMzBkLThhZWUzMDgzN2NmNiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQxMzg4MzIsImV4cCI6MTY2NDE0MjQzMn0.HephFsFq0f0aHEZ9pOt7EXRv4d1w4cYQPRI28o0uAk8

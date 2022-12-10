@@ -1,0 +1,37 @@
+### AddCompetition
+POST http://localhost:3003/competitions/add
+Content-Type: application/json
+
+{
+    "name": "100 METROS RASOS 1",
+    "modality": "100 metros rasos",
+    "unit": "s"
+}
+
+### ChangeStatus
+PUT http://localhost:3003/competitions/c9b96829-7beb-4589-b99b-447195f5ebc5
+Content-Type: application/json
+
+{
+    "newStatus": "Em andamento"
+}
+
+### AddResult
+POST http://localhost:3003/results/add 
+Content-Type: application/json
+
+{
+    "competition": "100 METROS RASOS 1",
+    "modality": "100 metros rasos",
+    "athlete": "ATLETA c",
+    "value": 13
+}
+
+### GetRanking
+GET http://localhost:3003/results/ranking
+Content-Type: application/json
+
+{
+    "competition": "100 METROS RASOS 1",
+    "modality": "100 metros rasos"
+}
