@@ -1,4 +1,4 @@
-import { IInputDBDTO, IProductDB, IProductIdOutput, Product } from "../entities/Product"
+import { IInputDBDTO, IProductDB, IProductIdOutput } from "../entities/Product"
 import { BaseDatabase } from "./BaseDatabase"
 
 class ProductDatabase extends BaseDatabase {

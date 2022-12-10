@@ -1,5 +1,5 @@
 import ProductBusiness from "../src/business/ProductBusiness"
-import { IInputDBDTO, IProductsInputDTO } from "../src/entities/Product"
+import { IProductsInputDTO } from "../src/entities/Product"
 import { BaseError } from "../src/errors/BaseError"
 import { ProductDatabaseMock } from "./mocks/ProductDatabaseMock"
 
