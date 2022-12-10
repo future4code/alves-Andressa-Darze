@@ -1,6 +1,6 @@
 export enum MODALITY {
     CEMRASOS = "100 metros rasos",
-    DARDOS = "Lançamento de dardos"
+    DARDOS = "lançamento de dardos"
 }
 
 export enum STATUS {

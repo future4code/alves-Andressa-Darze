@@ -3,13 +3,13 @@ POST http://localhost:3003/competitions/add
 Content-Type: application/json
 
 {
-    "name": "Competition Teste",
+    "name": "100 METROS RASOS 1",
     "modality": "100 metros rasos",
     "unit": "s"
 }
 
 ### ChangeStatus
-PUT http://localhost:3003/competitions/cc4e61d9-edfb-42d7-bbf9-86aab7ae27a6
+PUT http://localhost:3003/competitions/c9b96829-7beb-4589-b99b-447195f5ebc5
 Content-Type: application/json
 
 {
@@ -21,10 +21,10 @@ POST http://localhost:3003/results/add
 Content-Type: application/json
 
 {
-    "competition": "Quartas de final 100m rasos",
+    "competition": "100 METROS RASOS 1",
     "modality": "100 metros rasos",
-    "athlete": "ANDRA",
-    "value": 15.1
+    "athlete": "ATLETA c",
+    "value": 13
 }
 
 ### GetRanking
@@ -32,6 +32,6 @@ GET http://localhost:3003/results/ranking
 Content-Type: application/json
 
 {
-    "competition": "Competition Teste",
+    "competition": "100 METROS RASOS 1",
     "modality": "100 metros rasos"
 }
