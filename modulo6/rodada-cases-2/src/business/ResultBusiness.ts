@@ -119,7 +119,7 @@ class ResultBusiness {
                 ranking
             }
         
-            return ranking
+            return response
         }
         
        

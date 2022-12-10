@@ -10,7 +10,7 @@ export class CompetitionDatabaseMock extends BaseDatabase {
 
     public findCompetitionByName = async (competition: string) : Promise<ICompetitionDB | undefined> => {
         switch (competition) {
-            case "Mock 100 metros rasos":
+            case "Mock 100 metros rasos 1":
                 const competitionA : ICompetitionDB = {
                     id: "id-mock",
                     name: "Mock 100 metros rasos 1",
@@ -19,7 +19,16 @@ export class CompetitionDatabaseMock extends BaseDatabase {
                     status: STATUS.ONGOING
                 }
                 return competitionA
-            case "Mock lançamento de dardos":
+            case "Mock 100 metros rasos 2":
+                const competitionC : ICompetitionDB = {
+                    id: "id-mock",
+                    name: "Mock 100 metros rasos 1",
+                    modality: MODALITY.CEMRASOS,
+                    unit: "s",
+                    status: STATUS.FINISHED
+                }
+                return competitionC   
+            case "Mock lançamento de dardos 1":
                 const competitionB : ICompetitionDB = {
                     id: "id-mock",
                     name: "Mock lançamento de dardos 1",

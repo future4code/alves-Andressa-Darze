@@ -3,7 +3,7 @@ POST http://localhost:3003/competitions/add
 Content-Type: application/json
 
 {
-    "name": "Final 100m rasos",
+    "name": "Competition Teste",
     "modality": "100 metros rasos",
     "unit": "s"
 }
@@ -32,6 +32,6 @@ GET http://localhost:3003/results/ranking
 Content-Type: application/json
 
 {
-    "competition": "Classificatória lançamento de dardos",
-    "modality": "Lançamento de dardos"
+    "competition": "Competition Teste",
+    "modality": "100 metros rasos"
 }

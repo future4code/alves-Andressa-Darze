@@ -1,5 +1,5 @@
 import { MODALITY } from "../entities/Competition";
-import { INewResult, IRankingDB, IResultDardosDB, IResultDB, Result } from "../entities/Result";
+import { INewResult, IResultDB, Result } from "../entities/Result";
 import { BaseDatabase } from "./BaseDatabase";
 import knex from "knex";
 

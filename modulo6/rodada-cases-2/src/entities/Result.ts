@@ -21,13 +21,6 @@ export interface IResultDardosDB {
     'max(value)': number
 }
 
-
-export interface IRankingDB {
-    competition: string, // remover depois
-    athlete: string,
-    value: number
-}
-
 export class Result {
     constructor(
         private id: string,

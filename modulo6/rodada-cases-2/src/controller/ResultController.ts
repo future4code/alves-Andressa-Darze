@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import ResultBusiness from "../business/ResultBusiness";
-import { IAddResultInputDTO, IGetRankingInputDTO, IGetRankingOutputDTO, IRankingDB } from "../entities/Result";
+import { IAddResultInputDTO, IGetRankingInputDTO, IGetRankingOutputDTO } from "../entities/Result";
 
 class ResultController {
     constructor(
@@ -36,7 +36,7 @@ class ResultController {
                 modality
             }
 
-            const response : IGetRankingOutputDTO = await this.resultBusiness.getRanking(input)
+            const response : IGetRankingOutputDTO | undefined = await this.resultBusiness.getRanking(input)
 
             res.status(200).send(response)
 

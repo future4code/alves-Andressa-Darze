@@ -44,7 +44,7 @@ describe("Testando a CompetitionBusiness", () => {
         expect.assertions(2)
         try {
             const input : IAddCompInputDTO = {
-                name: "Mock 100 metros rasos",
+                name: "Mock 100 metros rasos 1",
                 modality: MODALITY.CEMRASOS,
                 unit: "s"
             }

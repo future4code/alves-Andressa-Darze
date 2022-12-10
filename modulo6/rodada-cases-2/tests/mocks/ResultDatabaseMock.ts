@@ -20,31 +20,49 @@ export class ResultDatabaseMock extends BaseDatabase {
                 }
             ]
             return resultA
-        } else if(athlete === "mock-athlete-2" && competition === "Mock lançamento de dardos" && modality === MODALITY.DARDOS) {
+        } else if(athlete === "mock-athlete-2" && competition === "Mock lançamento de dardos 1" && modality === MODALITY.DARDOS) {
             const results : IResultDB[] = [
                 {
                     id: "id-mock",
-                    competition: "Mock lançamento de dardos",
+                    competition: "Mock lançamento de dardos 1",
                     modality: MODALITY.DARDOS,
                     athlete: "mock-athlete-2",
                     value: 237
                 },
                 {
                     id: "id-mock",
-                    competition: "Mock lançamento de dardos",
+                    competition: "Mock lançamento de dardos 1",
                     modality: MODALITY.DARDOS,
                     athlete: "mock-athlete-2",
                     value: 198
                 },
                 {
                     id: "id-mock",
-                    competition: "Mock lançamento de dardos",
+                    competition: "Mock lançamento de dardos 1",
                     modality: MODALITY.DARDOS,
                     athlete: "mock-athlete-2",
                     value: 251
                 }
             ]
             return results
+        } else if(athlete === "mock-athlete-3" && competition === "Mock lançamento de dardos 1" && modality === MODALITY.DARDOS) {
+            const results : IResultDB[] = [
+                {
+                    id: "id-mock",
+                    competition: "Mock lançamento de dardos 1",
+                    modality: MODALITY.DARDOS,
+                    athlete: "mock-athlete-3",
+                    value: 191
+                },
+                {
+                    id: "id-mock",
+                    competition: "Mock lançamento de dardos 1",
+                    modality: MODALITY.DARDOS,
+                    athlete: "mock-athlete-3",
+                    value: 178
+                }
+            ]
+            return results 
         } else {
             return []
         }
@@ -58,40 +76,41 @@ export class ResultDatabaseMock extends BaseDatabase {
                     competition: "Mock 100 metros rasos 1",
                     modality: MODALITY.CEMRASOS,
                     athlete: "mock-athlete-1",
-                    value: 12.7
+                    value: 11.2
                 },
                 {
                     id: "id-mock",
                     competition: "Mock 100 metros rasos 1",
                     modality: MODALITY.CEMRASOS,
                     athlete: "mock-athlete-2",
-                    value: 14.8
+                    value: 12.7
                 },
                 {
                     id: "id-mock",
                     competition: "Mock 100 metros rasos 1",
                     modality: MODALITY.CEMRASOS,
                     athlete: "mock-athlete-3",
-                    value: 11.2
+                    value: 14.1
                 }
             ]
             return results
-        } else if (competition === "Mock lançamento de dardos" && modality === MODALITY.DARDOS) {
+            
+        } else if (competition === "Mock lançamento de dardos 1" && modality === MODALITY.DARDOS) {
             const results : IResultDardosDB[] = [
                 {
-                    competition: "Mock lançamento de dardos",
+                    competition: "Mock lançamento de dardos 1",
                     athlete: "mock-athlete-A",
-                    "max(value)": 198
+                    "max(value)": 213
                 },
                 {
-                    competition: "Mock lançamento de dardos",
+                    competition: "Mock lançamento de dardos 1",
                     athlete: "mock-athlete-B",
-                    "max(value)": 174
+                    "max(value)": 203
                 },
                 {
-                    competition: "Mock lançamento de dardos",
+                    competition: "Mock lançamento de dardos 1",
                     athlete: "mock-athlete-C",
-                    "max(value)": 203
+                    "max(value)": 197
                 }
             ]
             return results
